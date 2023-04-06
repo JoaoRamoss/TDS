@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BraGuia</string>
+    <string name="logoDesc">Logo</string>
+    <string name="trail_list">Trail list</string>
+    <string name="trail_history">trail history</string>
+    <string name="settings">settings</string>
 </resources>

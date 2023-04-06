@@ -20,9 +20,9 @@ public class Repository {
         allLocalTrails = localTrailDao.getAlphabetizedTrails();
     }
 
-    LiveData<List<Trail>> getAllLocalTrails(){return allLocalTrails;}
+    public LiveData<List<Trail>> getAllLocalTrails(){return allLocalTrails;}
 
-    void insert (Trail trail) {
+    public void insert(Trail trail) {
         TrailRoomDatabase.databaseWriteExecutor.execute(() -> {
             localTrailDao.insert(trail);
         });
