@@ -84,4 +84,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/trailHistoryButton" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="412dp"
+        android:layout_height="57dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/bottom_navigation"
+        app:menu="@menu/bottom_nav_menu"
+        tools:ignore="VisualLintBounds"
+        android:background="@color/black"
+        app:itemIconTint="@color/our_red"
+        app:itemTextColor="@color/off_white"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
