@@ -44,69 +44,53 @@
 
     <Button
         android:id="@+id/trailListButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_width="130dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="132dp"
         android:width="150dp"
-        android:backgroundTint="@color/off_white"
+        android:backgroundTint="@color/our_black"
         android:text="@string/trail_list"
-        android:textColor="@color/our_black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        android:textColor="@color/off_white"
+        app:layout_constraintEnd_toStartOf="@+id/trailHistoryButton"
+        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <Button
         android:id="@+id/trailHistoryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_width="130dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="132dp"
         android:width="150dp"
-        android:backgroundTint="@color/off_white"
+        android:backgroundTint="@color/our_black"
         android:text="@string/trail_history"
-        android:textColor="@color/our_black"
+        android:textColor="@color/off_white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.813"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trailListButton" />
-
-    <Button
-        android:id="@+id/settingsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:width="150dp"
-        android:backgroundTint="@color/off_white"
-        android:text="@string/settings"
-        android:textColor="@color/our_black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trailHistoryButton" />
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="412dp"
-        android:layout_height="57dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/bottom_navigation"
-        app:menu="@menu/bottom_nav_menu"
-        tools:ignore="VisualLintBounds"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
         android:background="@color/black"
         app:itemIconTint="@color/our_red"
         app:itemTextColor="@color/off_white"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu"
+        tools:ignore="VisualLintBounds" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="393dp"
         android:layout_height="316dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsButton"
-        app:layout_constraintVertical_bias="1.0"
         tools:context=".MainActivity">
 
         <!-- syntax for HorizontalScrollView -->
