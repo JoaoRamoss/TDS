@@ -2,8 +2,9 @@ package com.firstapp.braguia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,8 +13,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.our_black));
-        }
+        getWindow().setNavigationBarColor(getResources().getColor(R.color.our_black));
+
+        Button btn = (Button) findViewById(R.id.trailListButton);
+        btn.setOnClickListener(v -> startActivity(new Intent(this, TrailListFragment.class)));
     }
 }

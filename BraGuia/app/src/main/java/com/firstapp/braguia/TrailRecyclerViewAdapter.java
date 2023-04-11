@@ -1,18 +1,34 @@
 package com.firstapp.braguia;
 
+import static android.content.ContentValues.TAG;
+import static android.os.FileUtils.copy;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firstapp.braguia.Model.ImageLoader;
 import com.firstapp.braguia.Model.Trail;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
-public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecyclerViewAdapter.TrailViewHolder> {
+public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecyclerViewAdapter.TrailViewHolder> implements ImageLoader {
 
     private final List<Trail> mTrails;
 
@@ -32,9 +48,22 @@ public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecycler
         Trail t = mTrails.get(position);
         holder.mTrailName.setText(t.getTrail_name());
         holder.mTrailDesc.setText(t.getTrail_description());
-        //TODO
-        //Alterar forma como guardamos a imagem (em vez de link da source, guardar mm a imagem)
-        //holder.mTrailImage.findViewById()
+
+        //Download the image
+        Bitmap image = ImageLoader.downloadImage(t.getImage_src());
+        holder.mTrailImage.setImageBitmap(image);
+    }
+
+    static class TrailDiff extends DiffUtil.ItemCallback<Trail>{
+        @Override
+        public boolean areItemsTheSame(@NonNull Trail oldItem, @NonNull Trail newItem) {
+            return oldItem == newItem;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Trail oldItem, @NonNull Trail newItem) {
+            return oldItem.equals(newItem);
+        }
     }
 
     @Override

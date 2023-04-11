@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 @Entity(tableName = "trail_table")
 public class Trail {
     @PrimaryKey
@@ -23,16 +26,25 @@ public class Trail {
     private final int duration;
 
     @ColumnInfo(name = "difficulty")
-    private final char difficulty;
+    private final String difficulty;
 
 
-    public Trail(int id, String image_src, String trail_name, String trail_description, int duration, char difficulty) {
+    public Trail(int id, String image_src, String trail_name, String trail_description, int duration, String difficulty) {
         this.id  = id;
         this.image_src = image_src;
         this.trail_name = trail_name;
         this.trail_description = trail_description;
         this.duration = duration;
         this.difficulty = difficulty;
+    }
+
+    public Trail(JSONObject jo) throws JSONException, NoSuchFieldException, IllegalAccessException {
+        this.id = jo.getInt("id");
+        this.image_src = jo.getString("trail_img");
+        this.trail_name = jo.getString("trail_name");
+        this.trail_description = jo.getString("trail_desc");
+        this.duration = jo.getInt("trail_duration");
+        this.difficulty = jo.getString("trail_difficulty");
     }
 
     public int getId() {return id;}
@@ -45,6 +57,11 @@ public class Trail {
 
     public int getDuration() {return duration;}
 
-    public char getDifficulty() {return difficulty;}
+    public String getDifficulty() {return difficulty;}
 
+    public boolean equals(Trail t){
+        return (this.id == t.getId()) && (this.getImage_src().equals(t.getImage_src())) &&
+                (this.trail_name.equals(t.getTrail_name())) && (this.trail_description.equals(t.getTrail_description()))
+                && (this.duration == t.getDuration()) && (this.difficulty.equals(t.getDifficulty()));
+    }
 }
