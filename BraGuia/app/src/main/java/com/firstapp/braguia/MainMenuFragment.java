@@ -21,4 +21,6 @@ public class MainMenuFragment extends Fragment {
                 view1 -> NavHostFragment.findNavController(MainMenuFragment.this)
                         .navigate(R.id.action_FirstFragment_to_TrailList));
     }
+
+
 }

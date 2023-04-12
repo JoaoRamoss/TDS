@@ -17,5 +17,9 @@
     <fragment android:id="@+id/TrailList"
         android:name="com.firstapp.braguia.TrailListFragment"
         tools:layout="@layout/trail_list"
-        android:label="Trail list"/>
+        android:label="Trail list">
+        <action
+            android:id="@+id/action_TrailList_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
 </navigation>

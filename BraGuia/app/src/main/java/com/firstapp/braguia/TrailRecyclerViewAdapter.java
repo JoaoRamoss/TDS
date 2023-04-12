@@ -36,8 +36,13 @@ public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecycler
     @SuppressLint("AssertionSideEffect")
     @Override
     public void onBindViewHolder(final TrailViewHolder holder, int position) {
+
+
         Trail t = mTrails.get(position);
+        String duration = String.valueOf(t.getDuration()) + 'm';
         holder.mTrailName.setText(t.getTrail_name());
+        holder.mTrailDuration.setText(duration);
+        holder.mTrailDiff.setText(t.getDifficulty());
         holder.mTrailDesc.setText(t.getTrail_description());
         //Get image
         Picasso.get().load(t.getImage_src()).placeholder(R.drawable.no_image).into(holder.mTrailImage);
@@ -66,11 +71,16 @@ public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecycler
         private final TextView mTrailName;
         private final TextView mTrailDesc;
         private final ImageView mTrailImage;
+        private final TextView mTrailDiff;
+        private final TextView mTrailDuration;
+
 
         private TrailViewHolder(View itemView) {
             super(itemView);
             mTrailName = itemView.findViewById(R.id.TrailName);
             mTrailDesc = itemView.findViewById(R.id.trailDesc);
+            mTrailDiff = itemView.findViewById(R.id.trailDiff);
+            mTrailDuration = itemView.findViewById(R.id.trailDuration);
             mTrailImage = itemView.findViewById(R.id.trailImage);
         }
     }
