@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "489102364821",
+    "project_id": "braguia-9dbc5",
+    "storage_bucket": "braguia-9dbc5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489102364821:android:1506415e1783c80b9d8b9c",
+        "android_client_info": {
+          "package_name": "com.firstapp.braguia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "489102364821-ocel0vfil1stlm2qst018acbo8ag5b1i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyuKvGaJIeC6Hbg_PVhboDritnc7QYAdM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "489102364821-ocel0vfil1stlm2qst018acbo8ag5b1i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

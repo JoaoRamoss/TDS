@@ -1,12 +1,7 @@
 package com.firstapp.braguia;
 
-import static android.content.ContentValues.TAG;
-import static android.os.FileUtils.copy;
+import android.annotation.SuppressLint;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firstapp.braguia.Model.ImageLoader;
+import com.firstapp.braguia.Utils.ImageLoader;
 import com.firstapp.braguia.Model.Trail;
+import com.squareup.picasso.Picasso;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.List;
 
 public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecyclerViewAdapter.TrailViewHolder> implements ImageLoader {
@@ -43,15 +33,16 @@ public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecycler
         return new TrailViewHolder(v);
     }
 
+    @SuppressLint("AssertionSideEffect")
     @Override
     public void onBindViewHolder(final TrailViewHolder holder, int position) {
         Trail t = mTrails.get(position);
         holder.mTrailName.setText(t.getTrail_name());
         holder.mTrailDesc.setText(t.getTrail_description());
+        //Get image
+        Picasso.get().load(t.getImage_src()).placeholder(R.drawable.no_image).into(holder.mTrailImage);
 
-        //Download the image
-        Bitmap image = ImageLoader.downloadImage(t.getImage_src());
-        holder.mTrailImage.setImageBitmap(image);
+
     }
 
     static class TrailDiff extends DiffUtil.ItemCallback<Trail>{

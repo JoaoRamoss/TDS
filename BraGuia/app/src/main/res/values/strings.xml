@@ -11,4 +11,6 @@ geográfica, reprodução de mídia acerca de pontos de interesse...</string>
     <string name="trail_name">Trail name</string>
     <string name="trail_description">Trail description</string>
     <string name="trail_image">Trail image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

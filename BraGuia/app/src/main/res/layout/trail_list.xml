@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
     tools:context=".TrailListFragment"
-    tools:listitem="@layout/recyclerview_item">
+    tools:listitem="@layout/recyclerview_item"
+    app:navGraph="@navigation/nav_graph">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

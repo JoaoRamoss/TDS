@@ -3,20 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainActivity">
+    app:startDestination="@id/FirstFragment">
 
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.firstapp.braguia.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
-    <fragment
-        android:id="@+id/trailListFragment"
-        android:name="com.firstapp.braguia.TrailListFragment"
-        android:label="trail_list"
-        tools:layout="@layout/trail_list" >
+    <fragment android:id="@+id/FirstFragment"
+        android:label="First Fragment"
+        android:name="com.firstapp.braguia.MainMenuFragment"
+        tools:layout="@layout/first_fragment">
         <action
-            android:id="@+id/action_trailListFragment_to_mainActivity"
-            app:destination="@id/mainActivity" />
+            android:id="@+id/action_FirstFragment_to_TrailList"
+            app:destination="@id/TrailList" />
     </fragment>
+
+    <fragment android:id="@+id/TrailList"
+        android:name="com.firstapp.braguia.TrailListFragment"
+        tools:layout="@layout/trail_list"
+        android:label="Trail list"/>
 </navigation>
