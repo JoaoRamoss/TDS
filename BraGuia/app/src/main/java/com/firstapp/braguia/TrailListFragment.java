@@ -74,7 +74,7 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
         recvView.setAdapter(new TrailRecyclerViewAdapter(new ArrayList<>(trails.values())));
 
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener((NavigationBarView.OnItemSelectedListener) this);
+        bottomNavigationView.setOnItemSelectedListener(this);
 
         // Set the default selected item
         bottomNavigationView.setSelectedItemId(R.id.route);
@@ -92,6 +92,7 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
                 return false;
         }
     }
+
     private void navigateToHomeFragment() {
         // Navigate to the HomeFragment
         Navigation.findNavController(getView()).navigate(R.id.action_TrailList_to_FirstFragment);
