@@ -12,8 +12,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-
+public class MainActivity extends AppCompatActivity  {
+        BottomNavigationView bottomNavigationView;
         FirebaseAuth auth;
         Button button;
         TextView textView;
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             setContentView(R.layout.activity_main);
 
             getWindow().setNavigationBarColor(getResources().getColor(R.color.our_black));
+
 
             auth = FirebaseAuth.getInstance();
             user = auth.getCurrentUser();
@@ -45,24 +46,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         }
 
-        //declarar cada fragmento para as trocas
-        MainMenuFragment firstFragment = new MainMenuFragment();
-        @Override
-        public boolean
-        onNavigationItemSelected(@NonNull MenuItem item)
-        {
 
-            switch (item.getItemId()) {
-                //adicionar para cada butão e trocar os replaces
-                case R.id.home:
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.FirstFragment, firstFragment)
-                            .commit();
-                    return true;
-            }
-            return false;
-        }
 
 
     }
