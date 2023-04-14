@@ -26,6 +26,8 @@
                 android:layout_width="179dp"
                 android:layout_height="90dp"
                 android:layout_weight="1"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp"
                 app:srcCompat="@drawable/no_image"
                 android:contentDescription="@string/trail_image"
                 app:layout_constraintBottom_toBottomOf="parent"
