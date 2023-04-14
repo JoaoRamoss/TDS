@@ -31,9 +31,6 @@ public class MainMenuFragment extends Fragment implements BottomNavigationView.O
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.trailListButton).setOnClickListener(
-                view1 -> NavHostFragment.findNavController(MainMenuFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_TrailList));
     }
 
 

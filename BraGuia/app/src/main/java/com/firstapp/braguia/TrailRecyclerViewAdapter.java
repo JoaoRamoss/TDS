@@ -39,13 +39,13 @@ public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecycler
 
 
         Trail t = mTrails.get(position);
-        String duration = String.valueOf(t.getDuration()) + 'm';
+        String duration = String.valueOf(t.getTrail_duration()) + 'm';
         holder.mTrailName.setText(t.getTrail_name());
         holder.mTrailDuration.setText(duration);
-        holder.mTrailDiff.setText(t.getDifficulty());
+        holder.mTrailDiff.setText(t.getTrail_difficulty());
         holder.mTrailDesc.setText(t.getTrail_description());
         //Get image
-        Picasso.get().load(t.getImage_src()).placeholder(R.drawable.no_image).into(holder.mTrailImage);
+        Picasso.get().load(t.getTrail_img()).placeholder(R.drawable.no_image).into(holder.mTrailImage);
 
 
     }
