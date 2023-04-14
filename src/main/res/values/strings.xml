@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">BraGuia</string>
+    <string name="logoDesc">Logo</string>
+    <string name="trail_list">Lista de Roteiros</string>
+    <string name="trail_history">Histórico</string>
+    <string name="settings">Definições</string>
+    <string name="Apresentação">“BraGuia”, é uma aplicação para orientação turística que oferece
+roteiros turísticos aos seus utilizadores, tendo a capacidade de verdadeiramente substituir
+um verdadeiro guia turístico, oferecendo funcionalidades de localização e navegação
+geográfica, reprodução de mídia acerca de pontos de interesse...</string>
+    <string name="trail_name">Trail name</string>
+    <string name="trail_description">Trail description</string>
+    <string name="trail_image">Trail image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="trail_duration">Duration:</string>
+    <string name="difficulty">Difficulty:</string>
+</resources>

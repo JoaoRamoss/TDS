@@ -1,0 +1,90 @@
+[{
+  "id": 2,
+  "trail_img": "http://c5a2-193-137-92-29.eu.ngrok.io/media/se_de_braga_m0C5XV9.jpg",
+  "rel_trail": [],
+  "edges": [
+    {
+      "id": 4,
+      "edge_start": {
+        "id": 4,
+        "rel_pin": [],
+        "media": [
+          {
+            "id": 3,
+            "media_file": "http://c5a2-193-137-92-29.eu.ngrok.io/media/guia_bom_jesus.webm",
+            "media_type": "V",
+            "media_pin": 4
+          }
+        ],
+        "pin_name": "Bom Jesus",
+        "pin_desc": "Bom Jesus de Braga",
+        "pin_lat": 41.5547,
+        "pin_lng": -8.37,
+        "pin_alt": 550.0
+      },
+      "edge_end": {
+        "id": 3,
+        "rel_pin": [],
+        "media": [],
+        "pin_name": "Sameiro",
+        "pin_desc": "The Sanctuary of Sameiro is a stunning religious site located in Braga, Portugal. Perched on a hilltop overlooking the city, this sanctuary is a popular pilgrimage destination for Catholics and tourists alike.\r\n\r\nThe sanctuary's history dates back to the late 19th century, when a group of faithful Catholics decided to build a church dedicated to the Virgin Mary. Construction began in 1863, and it took over a century to complete. The result is an awe-inspiring neo-classical basilica with a soaring bell tower, intricate carvings, and stunning stained-glass windows.\r\n\r\nThe interior of the sanctuary is just as impressive, with ornate altars, murals, and sculptures. Visitors can admire the beauty of the nave and transept, as well as the magnificent organ and choir loft. The highlight of the sanctuary is the magnificent image of Our Lady of Sameiro, a statue of the Virgin Mary that is revered by Catholics around the world.\r\n\r\nOutside the sanctuary, visitors can explore the beautiful gardens, fountains, and monuments. The grounds are dotted with statues of saints and other religious figures, as well as chapels and shrines dedicated to various saints. The views from the hilltop are breathtaking, with panoramic vistas of the city and surrounding countryside.",
+        "pin_lat": 41.54,
+        "pin_lng": -8.36,
+        "pin_alt": 600.0
+      },
+      "edge_transport": "W",
+      "edge_duration": 15,
+      "edge_desc": "No sidewalk",
+      "edge_trail": 2
+    }
+  ],
+  "trail_name": "Small trail",
+  "trail_desc": "Bom Jesus -> Sameiro",
+  "trail_duration": 30,
+  "trail_difficulty": "E"
+},
+  {
+    "id": 3,
+    "trail_img": "http://c5a2-193-137-92-29.eu.ngrok.io/media/se_de_braga_m0C5XV9.jpg",
+    "rel_trail": [],
+    "edges": [
+      {
+        "id": 4,
+        "edge_start": {
+          "id": 4,
+          "rel_pin": [],
+          "media": [
+            {
+              "id": 3,
+              "media_file": "http://c5a2-193-137-92-29.eu.ngrok.io/media/guia_bom_jesus.webm",
+              "media_type": "V",
+              "media_pin": 4
+            }
+          ],
+          "pin_name": "Bom Jesus",
+          "pin_desc": "Bom Jesus de Braga",
+          "pin_lat": 41.5547,
+          "pin_lng": -8.37,
+          "pin_alt": 550.0
+        },
+        "edge_end": {
+          "id": 3,
+          "rel_pin": [],
+          "media": [],
+          "pin_name": "Sameiro",
+          "pin_desc": "The Sanctuary of Sameiro is a stunning religious site located in Braga, Portugal. Perched on a hilltop overlooking the city, this sanctuary is a popular pilgrimage destination for Catholics and tourists alike.\r\n\r\nThe sanctuary's history dates back to the late 19th century, when a group of faithful Catholics decided to build a church dedicated to the Virgin Mary. Construction began in 1863, and it took over a century to complete. The result is an awe-inspiring neo-classical basilica with a soaring bell tower, intricate carvings, and stunning stained-glass windows.\r\n\r\nThe interior of the sanctuary is just as impressive, with ornate altars, murals, and sculptures. Visitors can admire the beauty of the nave and transept, as well as the magnificent organ and choir loft. The highlight of the sanctuary is the magnificent image of Our Lady of Sameiro, a statue of the Virgin Mary that is revered by Catholics around the world.\r\n\r\nOutside the sanctuary, visitors can explore the beautiful gardens, fountains, and monuments. The grounds are dotted with statues of saints and other religious figures, as well as chapels and shrines dedicated to various saints. The views from the hilltop are breathtaking, with panoramic vistas of the city and surrounding countryside.",
+          "pin_lat": 41.54,
+          "pin_lng": -8.36,
+          "pin_alt": 600.0
+        },
+        "edge_transport": "W",
+        "edge_duration": 15,
+        "edge_desc": "No sidewalk",
+        "edge_trail": 2
+      }
+    ],
+    "trail_name": "Super small trail",
+    "trail_desc": "Bom Jesus -> UMinho",
+    "trail_duration": 30,
+    "trail_difficulty": "E"
+  }]
