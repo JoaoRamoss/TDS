@@ -12,13 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firstapp.braguia.Utils.ImageLoader;
 import com.firstapp.braguia.Model.Trail;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecyclerViewAdapter.TrailViewHolder> implements ImageLoader {
+public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecyclerViewAdapter.TrailViewHolder> {
 
     private final List<Trail> mTrails;
 
