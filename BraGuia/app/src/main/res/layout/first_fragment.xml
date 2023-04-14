@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/background"
     tools:context=".MainMenuFragment"
     >
 
@@ -121,8 +121,11 @@
                     android:layout_weight="1"
                     android:padding="15dp"
                     android:text="@string/Apresentação"
-                    android:textColor="@color/off_white"
-                    android:textSize="18dp" />
+                    android:textColor="@color/our_black"
+                    android:textSize="18dp"
+                    android:background="@drawable/rounded_background"
+                    />
+
 
                 <TextView
                     android:id="@+id/textView2"
