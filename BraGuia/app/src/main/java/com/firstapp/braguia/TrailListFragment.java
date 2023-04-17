@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firstapp.braguia.Model.Trail;
 import com.firstapp.braguia.Repository.Repository;
 import com.firstapp.braguia.Utils.Utils;
+import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -27,13 +30,16 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TrailListFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener {
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
-    private static Map<Integer, Trail> trails = new HashMap<>();
+    private static List<Trail> trails = new ArrayList<>();
     private static boolean isLoaded = false;
+
+    private TrailRecyclerViewAdapter adapter;
 
     private BottomNavigationView bottomNavigationView;
     @Override
@@ -42,37 +48,30 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
         if(getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        initTrails(this.getContext());
     }
 
     public TrailListFragment(){}
 
-    private void initTrails (Context ctx){
-        if (isLoaded){
-            return;
-        }
-        JSONArray jsonArray= Utils.loadSONFile(ctx);
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jo = null;
-            try {
-                jo = jsonArray.getJSONObject(i);
-                Trail t = new Trail (jo);
-                trails.put(t.getId(), t);
-            } catch (JSONException | NoSuchFieldException | IllegalAccessException e){
-                e.printStackTrace();
-            }
-        }
-        isLoaded = true;
-    }
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.trail_list, container, false);
         RecyclerView recvView = (RecyclerView) view.findViewById(R.id.recyclerview);
         recvView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recvView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-        recvView.setAdapter(new TrailRecyclerViewAdapter(new ArrayList<>(trails.values())));
+
+        adapter = new TrailRecyclerViewAdapter(new ArrayList<>());
+        recvView.setAdapter(adapter);
+
+        ViewModel viewmodel = new ViewModelProvider(this).get(ViewModel.class);
+        viewmodel.getTrails().observe(getViewLifecycleOwner(), new Observer<List<Trail>>(){
+            @Override
+            public void onChanged(List<Trail> trails) {
+                adapter.setTrails(trails);
+            }
+        });
 
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this);

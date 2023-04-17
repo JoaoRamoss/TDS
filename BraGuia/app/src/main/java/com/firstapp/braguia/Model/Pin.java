@@ -1,11 +1,19 @@
 package com.firstapp.braguia.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Pin {
+    @SerializedName("id")
     private int id;
+    @SerializedName("pin_name")
     private String pin_name;
+    @SerializedName("pin_desc")
     private String pin_desc;
+    @SerializedName("pin_lat")
     private double pin_lat;
+    @SerializedName("pin_lng")
     private double pin_lng;
+    @SerializedName("pin_alt")
     private double pin_alt;
 
     public Pin() {

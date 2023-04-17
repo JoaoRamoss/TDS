@@ -1,12 +1,23 @@
 package com.firstapp.braguia.Model;
 
+import com.google.gson.annotations.SerializedName;
+
+import kotlin.jvm.internal.SerializedIr;
+
 public class Edge {
+    @SerializedName("id")
     private int id;
+    @SerializedName("edge_start")
     private Pin edge_start;
+    @SerializedName("edge_end")
     private Pin edge_end;
+    @SerializedName("edge_transport")
     private String edge_transport;
+    @SerializedName("edge_duration")
     private int edge_duration;
+    @SerializedName("edge_desc")
     private String edge_desc;
+    @SerializedName("edge_trail")
     private int edge_trail;
 
     public Edge(){

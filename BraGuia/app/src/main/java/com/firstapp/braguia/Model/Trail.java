@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,23 +17,30 @@ import java.util.List;
 public class Trail {
     @PrimaryKey
     @ColumnInfo(name = "id")
+    @SerializedName("id")
     private int id;
 
     @Ignore
+    @SerializedName("edges")
     private List<Edge> edges;
+    @SerializedName("trail_img")
     @ColumnInfo(name = "image_source")
     private  String trail_img;
 
     @ColumnInfo(name = "trail_name")
+    @SerializedName("trail_name")
     private  String trail_name;
 
     @ColumnInfo(name="trail_description")
-    private  String trail_description;
+    @SerializedName("trail_desc")
+    private  String trail_desc;
 
     @ColumnInfo(name = "trail_duration")
+    @SerializedName("trail_duration")
     private  int trail_duration;
 
     @ColumnInfo(name = "trail_difficulty")
+    @SerializedName("trail_difficulty")
     private  String trail_difficulty;
 
     public Trail(){
@@ -39,7 +48,7 @@ public class Trail {
         this.edges = new ArrayList<>();
         this.trail_img = "";
         this.trail_name = "";
-        this.trail_description = "";
+        this.trail_desc = "";
         this.trail_duration = 0;
         this.trail_difficulty = "";
     }
@@ -48,7 +57,7 @@ public class Trail {
         this.edges = new ArrayList<>(edges);
         this.trail_img = image_src;
         this.trail_name = trail_name;
-        this.trail_description = trail_description;
+        this.trail_desc = trail_description;
         this.trail_duration = duration;
         this.trail_difficulty = difficulty;
     }
@@ -58,7 +67,7 @@ public class Trail {
         this.edges = new ArrayList<>();
         this.trail_img = jo.getString("trail_img");
         this.trail_name = jo.getString("trail_name");
-        this.trail_description = jo.getString("trail_desc");
+        this.trail_desc = jo.getString("trail_desc");
         this.trail_duration = jo.getInt("trail_duration");
         this.trail_difficulty = jo.getString("trail_difficulty");
     }
@@ -70,7 +79,7 @@ public class Trail {
 
     public String getTrail_name() {return trail_name;}
 
-    public String getTrail_description() {return trail_description;}
+    public String getTrail_desc() {return trail_desc;}
 
     public int getTrail_duration() {return trail_duration;}
 
@@ -85,8 +94,8 @@ public class Trail {
         this.id = id;
     }
 
-    public void setTrail_description(String trail_description) {
-        this.trail_description = trail_description;
+    public void setTrail_desc(String trail_description) {
+        this.trail_desc = trail_description;
     }
 
     public void setTrail_difficulty(String trail_difficulty) {
@@ -113,7 +122,7 @@ public class Trail {
     //Update nesta função para comparar as vars de instancia que foram adicionadas
     public boolean equals(Trail t){
         return (this.id == t.getId()) && (this.getTrail_img().equals(t.getTrail_img())) &&
-                (this.trail_name.equals(t.getTrail_name())) && (this.trail_description.equals(t.getTrail_description()))
+                (this.trail_name.equals(t.getTrail_name())) && (this.trail_desc.equals(t.getTrail_desc()))
                 && (this.trail_duration == t.getTrail_duration()) && (this.trail_difficulty.equals(t.getTrail_difficulty()));
     }
 }

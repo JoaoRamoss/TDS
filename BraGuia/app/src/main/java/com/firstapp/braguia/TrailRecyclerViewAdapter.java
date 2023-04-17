@@ -13,13 +13,15 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.braguia.Model.Trail;
+import com.firstapp.braguia.ViewModel.ViewModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecyclerViewAdapter.TrailViewHolder> {
 
-    private final List<Trail> mTrails;
+    private List<Trail> mTrails = new ArrayList<>();
 
     public TrailRecyclerViewAdapter (List<Trail> items) {
         mTrails = items;
@@ -35,17 +37,22 @@ public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecycler
     @SuppressLint("AssertionSideEffect")
     @Override
     public void onBindViewHolder(final TrailViewHolder holder, int position) {
-
-
         Trail t = mTrails.get(position);
+        System.out.println(t.getTrail_name());
+        System.out.println(t.getTrail_img());
+        System.out.println(t.getTrail_desc());
+        System.out.println(t.getTrail_difficulty());
+        System.out.println(t.getTrail_duration());
+
         String duration = String.valueOf(t.getTrail_duration()) + 'm';
         holder.mTrailName.setText(t.getTrail_name());
         holder.mTrailDuration.setText(duration);
         holder.mTrailDiff.setText(t.getTrail_difficulty());
-        holder.mTrailDesc.setText(t.getTrail_description());
+        holder.mTrailDesc.setText(t.getTrail_desc());
         //Get image
-        Picasso.get().load(t.getTrail_img()).placeholder(R.drawable.no_image).into(holder.mTrailImage);
-
+        Picasso.get().load(t.getTrail_img())
+                .placeholder(R.drawable.no_image)
+                .into(holder.mTrailImage);
 
     }
 
@@ -59,6 +66,11 @@ public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecycler
         public boolean areContentsTheSame(@NonNull Trail oldItem, @NonNull Trail newItem) {
             return oldItem.equals(newItem);
         }
+    }
+
+    public void setTrails(List<Trail> trails) {
+        this.mTrails = trails;
+        notifyDataSetChanged();
     }
 
     @Override
