@@ -38,12 +38,6 @@ public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecycler
     @Override
     public void onBindViewHolder(final TrailViewHolder holder, int position) {
         Trail t = mTrails.get(position);
-        System.out.println(t.getTrail_name());
-        System.out.println(t.getTrail_img());
-        System.out.println(t.getTrail_desc());
-        System.out.println(t.getTrail_difficulty());
-        System.out.println(t.getTrail_duration());
-
         String duration = String.valueOf(t.getTrail_duration()) + 'm';
         holder.mTrailName.setText(t.getTrail_name());
         holder.mTrailDuration.setText(duration);
