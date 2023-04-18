@@ -7,7 +7,7 @@
 
     <fragment android:id="@+id/FirstFragment"
         android:label="First Fragment"
-        android:name="com.firstapp.braguia.MainMenuFragment"
+        android:name="com.firstapp.braguia.UI.MainMenuFragment"
         tools:layout="@layout/first_fragment">
         <action
             android:id="@+id/action_FirstFragment_to_TrailList"
@@ -15,7 +15,7 @@
     </fragment>
 
     <fragment android:id="@+id/TrailList"
-        android:name="com.firstapp.braguia.TrailListFragment"
+        android:name="com.firstapp.braguia.UI.TrailListFragment"
         tools:layout="@layout/trail_list"
         android:label="Trail list">
         <action

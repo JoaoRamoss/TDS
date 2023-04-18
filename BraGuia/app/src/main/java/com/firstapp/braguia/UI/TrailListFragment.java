@@ -1,6 +1,5 @@
-package com.firstapp.braguia;
+package com.firstapp.braguia.UI;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,25 +12,16 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.braguia.Model.Trail;
-import com.firstapp.braguia.Repository.Repository;
-import com.firstapp.braguia.Utils.Utils;
+import com.firstapp.braguia.R;
 import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class TrailListFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener {
     private static final String ARG_COLUMN_COUNT = "column-count";

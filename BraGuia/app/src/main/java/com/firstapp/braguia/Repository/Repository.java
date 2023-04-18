@@ -31,11 +31,13 @@ public class Repository{
 
     private static final String BASE_URL = "http://192.168.85.186";
 
-    private List<Trail> trails = null;
 
     //All trails stored locally
     private final LiveData<List<Trail>> allLocalTrails;
+
+    //All trails from API
     private LiveData<List<Trail>> allTrails;
+
 
     public Repository (Application application) throws IOException {
 
@@ -83,4 +85,5 @@ public class Repository{
             localTrailDao.insert(trail);
         });
     }
+
 }

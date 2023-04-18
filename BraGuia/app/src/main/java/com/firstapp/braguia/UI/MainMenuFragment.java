@@ -1,4 +1,4 @@
-package com.firstapp.braguia;
+package com.firstapp.braguia.UI;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
+import com.firstapp.braguia.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 

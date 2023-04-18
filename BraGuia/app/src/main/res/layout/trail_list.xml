@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".TrailListFragment"
+    tools:context=".UI.TrailListFragment"
     tools:listitem="@layout/recyclerview_item"
     app:navGraph="@navigation/nav_graph">
 

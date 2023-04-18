@@ -1,4 +1,4 @@
-package com.firstapp.braguia;
+package com.firstapp.braguia.UI;
 
 import android.annotation.SuppressLint;
 
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.braguia.Model.Trail;
-import com.firstapp.braguia.ViewModel.ViewModel;
+import com.firstapp.braguia.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

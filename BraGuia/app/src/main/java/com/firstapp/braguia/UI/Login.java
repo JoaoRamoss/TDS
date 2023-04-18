@@ -1,4 +1,4 @@
-package com.firstapp.braguia;
+package com.firstapp.braguia.UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firstapp.braguia.MainActivity;
 import com.firstapp.braguia.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

@@ -1,4 +1,4 @@
-package com.firstapp.braguia;
+package com.firstapp.braguia.UI;
 
 import android.Manifest;
 import android.app.Activity;
