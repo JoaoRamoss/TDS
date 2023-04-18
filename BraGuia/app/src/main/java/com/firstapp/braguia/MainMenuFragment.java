@@ -41,10 +41,15 @@ public class MainMenuFragment extends Fragment implements BottomNavigationView.O
                 // Handle the click on the Home menu item
                 navigateToRouteFragment();
                 return true;
+            case R.id.emergency:
+                // Handle the click on the Emergency menu item
+                EmergencyCall.makeEmergencyCall(getContext());
+                return true;
             default:
                 return false;
         }
     }
+
 
     private void navigateToRouteFragment() {
         // Navigate to the HomeFragment
