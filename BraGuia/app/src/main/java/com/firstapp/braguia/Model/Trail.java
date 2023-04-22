@@ -10,11 +10,12 @@ import com.google.gson.annotations.SerializedName;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "trail_table")
-public class Trail {
+public class Trail implements Serializable {
     @PrimaryKey
     @ColumnInfo(name = "id")
     @SerializedName("id")

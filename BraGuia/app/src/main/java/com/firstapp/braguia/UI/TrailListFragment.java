@@ -20,10 +20,12 @@ import com.firstapp.braguia.R;
 import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrailListFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener {
+public class TrailListFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener, TrailRecyclerViewAdapter.ItemClickListener {
+
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
     private static List<Trail> trails = new ArrayList<>();
@@ -52,16 +54,18 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
         recvView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recvView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
-        adapter = new TrailRecyclerViewAdapter(new ArrayList<>());
+        adapter = new TrailRecyclerViewAdapter(new ArrayList<>(), this);
         recvView.setAdapter(adapter);
 
         ViewModel viewmodel = new ViewModelProvider(this).get(ViewModel.class);
-        viewmodel.getTrails().observe(getViewLifecycleOwner(), new Observer<List<Trail>>(){
+        viewmodel.getTrails().observe(getViewLifecycleOwner(), new Observer<List<Trail>>() {
             @Override
             public void onChanged(List<Trail> trails) {
                 adapter.setTrails(trails);
+                TrailListFragment.trails = trails; // Adicione esta linha para atualizar a variável 'trails'
             }
         });
+
 
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this);
@@ -78,6 +82,9 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
                 // Handle the click on the Home menu item
                 navigateToHomeFragment();
                 return true;
+            case R.id.emergency:
+                // Handle the click on the Emergency menu item
+                EmergencyCall.makeEmergencyCall(getContext());
             default:
                 return false;
         }
@@ -86,6 +93,8 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
     private void navigateToHomeFragment() {
         // Navigate to the HomeFragment
         Navigation.findNavController(getView()).navigate(R.id.action_TrailList_to_FirstFragment);
+
+
     }
 
 
@@ -93,4 +102,15 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
     public void onResume() {
         super.onResume();
     }
+
+
+    @Override
+    public void onItemClick(int position) {
+        Trail selectedTrail = trails.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("selectedTrail", (Serializable) selectedTrail);
+        Navigation.findNavController(getView()).navigate(R.id.action_trailListFragment_to_trailDetailsFragment, bundle);
+    }
+
+
 }

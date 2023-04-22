@@ -21,5 +21,17 @@
         <action
             android:id="@+id/action_TrailList_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_trailListFragment_to_trailDetailsFragment"
+            app:destination="@id/trailDetailsFragment" />
+
     </fragment>
+
+    <fragment
+        android:id="@+id/trailDetailsFragment"
+        android:name="com.firstapp.braguia.UI.TrailDetailsFragment"
+        android:label="route_details"
+        tools:layout="@layout/content_trail">
+    </fragment>
+
 </navigation>
