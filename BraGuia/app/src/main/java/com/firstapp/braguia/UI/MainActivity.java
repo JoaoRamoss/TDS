@@ -7,44 +7,44 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.firstapp.braguia.Model.Api;
 import com.firstapp.braguia.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity  {
-        FirebaseAuth auth;
         Button button;
         TextView textView;
-        FirebaseUser user;
+        private Api apiInterface;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
+            //api
+            apiInterface = createApiInterface();
+
             ActionBar actionBar = getSupportActionBar();
             actionBar.hide();
 
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_login);
 
             getWindow().setNavigationBarColor(getResources().getColor(R.color.our_black));
 
 
-            auth = FirebaseAuth.getInstance();
-            user = auth.getCurrentUser();
-            //button = findViewById(R.id.logout);
-            //textView = findViewById(R.id.user_details);
-            //if (user == null) {
-                //Intent intent = new Intent(getApplicationContext(), Login.class);
-                //startActivity(intent);
-                //finish();
-            //} else textView.setText(user.getEmail());
-
-            //button.setOnClickListener(new View.OnClickListener() {
-            //  @Override
-            // public void onClick(View view) {
-            //   FirebaseAuth.getInstance().signOut();
-            //}
-            //});
-
         }
+
+        public Api getApiInterface() {
+            return apiInterface;
+        }
+
+        private Api createApiInterface() {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://192.168.85.186")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            return retrofit.create(Api.class);
+    }
+
 
 
 

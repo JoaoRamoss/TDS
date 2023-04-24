@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.firstapp.braguia.Model.Api;
+import com.firstapp.braguia.Model.LoginBody;
+import com.firstapp.braguia.Model.LoginResponse;
 import com.firstapp.braguia.Model.Trail;
 import com.firstapp.braguia.Model.TrailDao;
 import com.firstapp.braguia.Model.TrailRoomDatabase;
@@ -39,6 +41,7 @@ public class Repository{
     private LiveData<List<Trail>> allTrails;
 
 
+
     public Repository (Application application) throws IOException {
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -51,6 +54,7 @@ public class Repository{
         localTrailDao = db.trailDao();
         allLocalTrails = localTrailDao.getAlphabetizedTrails();
         allTrails = getTrails();
+
     }
 
     public LiveData<List<Trail>> getAllLocalTrails(){return allLocalTrails;}
@@ -84,6 +88,40 @@ public class Repository{
         TrailRoomDatabase.databaseWriteExecutor.execute(() -> {
             localTrailDao.insert(trail);
         });
+    }
+
+    public void loginRemote(LoginBody loginBody, IloginResponse loginResponse){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL + "/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(Api.class);
+        Call<LoginResponse> initiateLogin = api.login(loginBody);
+
+        initiateLogin.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if(response.isSuccessful()){
+                    loginResponse.OnResponse(response.body());
+                }
+                else {
+                    loginResponse.onFailure(new Throwable(response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                loginResponse.onFailure(t);
+
+            }
+        });
+
+
+    }
+
+    public interface IloginResponse{
+        void OnResponse(LoginResponse loginResponse);
+        void onFailure(Throwable t);
     }
 
 }
