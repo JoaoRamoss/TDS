@@ -19,34 +19,16 @@ public class MainActivity extends AppCompatActivity  {
         private Api apiInterface;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
-            //api
-            apiInterface = createApiInterface();
 
             ActionBar actionBar = getSupportActionBar();
             actionBar.hide();
 
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_login);
+            setContentView(R.layout.activity_main);
 
             getWindow().setNavigationBarColor(getResources().getColor(R.color.our_black));
 
 
         }
-
-        public Api getApiInterface() {
-            return apiInterface;
-        }
-
-        private Api createApiInterface() {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.85.186")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            return retrofit.create(Api.class);
-    }
-
-
-
-
 
     }

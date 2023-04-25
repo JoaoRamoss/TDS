@@ -1,6 +1,9 @@
 package com.firstapp.braguia.ViewModel;
 
+import static java.lang.Boolean.TRUE;
+
 import android.app.Application;
+import android.content.Intent;
 import android.view.View;
 
 import androidx.lifecycle.AndroidViewModel;
@@ -11,9 +14,12 @@ import com.firstapp.braguia.Model.LoginBody;
 import com.firstapp.braguia.Model.LoginResponse;
 import com.firstapp.braguia.Model.Trail;
 import com.firstapp.braguia.Repository.Repository;
+import com.firstapp.braguia.UI.Register;
 
 import java.io.IOException;
 import java.util.List;
+
+import okhttp3.ResponseBody;
 
 public class ViewModel extends AndroidViewModel {
     private final Repository mRepository;
@@ -30,19 +36,8 @@ public class ViewModel extends AndroidViewModel {
         mLoginResultMutableData.postValue("Not logged in");
     }
 
-    public void login(String email, String password){
-        mRepository.loginRemote(new LoginBody(email,password),new Repository.IloginResponse(){
-            @Override
-            public void OnResponse(LoginResponse loginResponse) {
-                mLoginResultMutableData.postValue("Login Success");
-                System.out.println("sucesso");
-            }
-            @Override
-            public void onFailure(Throwable t) {
-                mLoginResultMutableData.postValue("Login Failure: "+t.getLocalizedMessage());
-                System.out.println("insucesso");
-            }
-        });
+    public Boolean login(String email, String password){
+        return mRepository.loginRemote(email,password);
     }
 
     public LiveData<List<Trail>> getmAllTrails() {

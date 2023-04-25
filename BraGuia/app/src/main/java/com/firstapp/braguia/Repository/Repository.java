@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,9 +41,13 @@ public class Repository{
     //All trails from API
     private LiveData<List<Trail>> allTrails;
 
+    private MutableLiveData<Boolean> isLogin = new MutableLiveData<>();
+
+
 
 
     public Repository (Application application) throws IOException {
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL + "/")
@@ -90,38 +95,53 @@ public class Repository{
         });
     }
 
-    public void loginRemote(LoginBody loginBody, IloginResponse loginResponse){
+    public Boolean loginRemote(String user, String pass){
+
+        isLogin.setValue(false);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL + "/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(Api.class);
-        Call<LoginResponse> initiateLogin = api.login(loginBody);
+        Call<ResponseBody> initiateLogin = api.login(user, pass);
 
-        initiateLogin.enqueue(new Callback<LoginResponse>() {
+        initiateLogin.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
                 if(response.isSuccessful()){
-                    loginResponse.OnResponse(response.body());
+                    try {
+                        String jwtToken = response.body().string();
+                        System.out.println(jwtToken);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    System.out.println(response.body());
+                    isLogin.setValue(true);
                 }
                 else {
-                    loginResponse.onFailure(new Throwable(response.message()));
+                    System.out.println("n deu");
+                    int errorCode = response.code();
+                    try {
+                        String errorMessage = response.errorBody().string();
+                        System.out.println(errorMessage);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                loginResponse.onFailure(t);
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println(t);
 
             }
         });
 
+        System.out.println(isLogin.getValue());
+
+        return isLogin.getValue();
 
     }
-
-    public interface IloginResponse{
-        void OnResponse(LoginResponse loginResponse);
-        void onFailure(Throwable t);
-    }
-
 }

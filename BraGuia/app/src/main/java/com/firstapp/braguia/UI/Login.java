@@ -25,13 +25,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 
-public class Login extends AppCompatActivity {
+public class Login extends AppCompatActivity implements View.OnClickListener {
 
     TextInputEditText editTextEmail, editTextPassword;
     Button buttonLogin;
     ProgressBar progressBar;
     TextView textView;
-
     ViewModel viewModel;
 
 
@@ -40,20 +39,42 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
-        buttonLogin = findViewById(R.id.btn_login);
+        buttonLogin = (Button) findViewById(R.id.btn_login);
+        buttonLogin.setEnabled(true);
+        buttonLogin.setOnClickListener(this);
         progressBar = findViewById(R.id.progressBar);
-        textView = findViewById(R.id.registerNow);
+        textView = (TextView) findViewById(R.id.registerNow);
+        textView.setEnabled(true);
+        textView.setOnClickListener(this);
         viewModel = new ViewModelProvider(this).get(ViewModel.class);
 
+    }
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("touaqui");
-                viewModel.login(editTextEmail.getText().toString(),editTextPassword.getText().toString());
-            }
-        });
+    public void onClick(View v){
+
+        switch(v.getId())
+        {
+            case R.id.btn_login:
+                System.out.println(String.valueOf(editTextEmail.getText()) + String.valueOf(editTextPassword.getText()));
+                Boolean result = viewModel.login(String.valueOf(editTextEmail.getText()), String.valueOf(editTextPassword.getText()));
+                System.out.println("TOU AQUI");
+                System.out.println(result);
+
+                if (result){
+                    Intent intent = new Intent(v.getContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+                break;
+
+            case R.id.registerNow:
+                Intent intent = new Intent(v.getContext(), Register.class);
+                startActivity(intent);
+                break;
+
+
+        }
     }
 }
