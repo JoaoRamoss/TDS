@@ -9,12 +9,11 @@
     <androidx.cardview.widget.CardView
         xmlns:card_view="https://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="139dp"
+        android:layout_margin="5dp"
         card_view:cardBackgroundColor="grey"
         card_view:cardCornerRadius="15dp"
-        android:layout_margin="5dp"
-        card_view:cardElevation="5dp"
-        >
+        card_view:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,17 +22,19 @@
 
             <ImageView
                 android:id="@+id/trailImage"
-                android:layout_width="179dp"
-                android:layout_height="90dp"
+                android:layout_width="222dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:paddingBottom="3dp"
-                android:paddingTop="3dp"
-                app:srcCompat="@drawable/no_image"
                 android:contentDescription="@string/trail_image"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:paddingStart="3dp"
+                android:paddingEnd="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/no_image" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,40 +46,40 @@
                     android:id="@+id/TrailName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:text="@string/trail_name"
                     android:textAlignment="center"
-                    android:text="@string/trail_name" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/trailDesc"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="71dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:text="@string/trail_description" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:paddingStart="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="horizontal"
-                        >
+                        android:paddingStart="10dp">
 
                         <TextView
                             android:id="@+id/durationIndicator"
                             android:layout_width="45dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginRight="3dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
                             android:text="@string/trail_duration"
                             android:textStyle="bold" />
 
@@ -87,6 +88,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textSize="12sp"
                             android:text="120 m" />
                     </LinearLayout>
 
@@ -102,9 +104,9 @@
                             android:id="@+id/diffIndicator"
                             android:layout_width="15dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginRight="3dp"
-
+                            android:layout_weight="1"
+                            android:textSize="12sp"
                             android:text="@string/difficulty"
                             android:textStyle="bold"
                             tools:ignore="NestedWeights,RtlSymmetry" />
@@ -114,6 +116,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textSize="12sp"
                             android:text="E" />
 
                     </LinearLayout>

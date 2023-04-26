@@ -34,11 +34,11 @@
         tools:layout="@layout/content_trail">
 
         <action
-            android:id="@+id/action_trailDetailsFragment_to_trailListFragment"
+            android:id="@+id/action_trailDetailsFragment_to_trailList"
             app:destination="@id/TrailList" />
 
         <action
-            android:id="@+id/action_trailDetailsFragment_to_FistFragment"
+            android:id="@+id/action_trailDetailsFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
 
     </fragment>

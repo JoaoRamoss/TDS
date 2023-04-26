@@ -133,6 +133,29 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        switch (item.getItemId()) {
+            case R.id.route:
+                // Handle the click on the Home menu item
+                navigateToRouteFragment();
+            case R.id.home:
+                // Handle the click on the Home menu item
+                navigateToHomeFragment();
+                return true;
+            case R.id.emergency:
+                // Handle the click on the Emergency menu item
+                EmergencyCall.makeEmergencyCall(getContext());
+            default:
+                return false;
+        }
+    }
+
+    private void navigateToHomeFragment() {
+        // Navigate to the HomeFragment
+        Navigation.findNavController(getView()).navigate(R.id.action_trailDetailsFragment_to_FirstFragment);
+    }
+
+    private void navigateToRouteFragment() {
+        // Navigate to the HomeFragment
+        Navigation.findNavController(getView()).navigate(R.id.action_trailDetailsFragment_to_trailList);
     }
 }
