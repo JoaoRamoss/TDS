@@ -13,6 +13,7 @@ import com.firstapp.braguia.Model.TrailDao;
 import com.firstapp.braguia.Model.TrailRoomDatabase;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -107,9 +108,22 @@ public class Repository {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()){
-                    String csrfToken = response.headers().get("Set-Cookie").split(";")[0];
-                    String sessionId = response.headers().get("Set-Cookie").split(";")[1];
 
+                    // We get 2 "Set-Cookie". Split it and store each in an array.
+                    List<String> cookies = new ArrayList<>();
+                    for (int i = 0; i < response.headers().size(); i++) {
+                        String headerName = response.headers().name(i);
+                        String headerValue = response.headers().value(i);
+                        if (headerName.equalsIgnoreCase("Set-Cookie")) {
+                            cookies.add(headerValue);
+                        }
+                    }
+
+                    // Store each cookie in an individual string
+                    String csrfToken = cookies.get(0);
+                    String sessionId = cookies.get(1);
+
+                    // Locally store each cookie
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("csrfToken", csrfToken);
                     editor.putString("sessionId", sessionId);
@@ -118,7 +132,6 @@ public class Repository {
                     isLoggedIn.setValue(true);
                 }
                 else {
-                    int errorCode = response.code();
                     try {
                         String errorMessage = response.errorBody().string();
                         System.out.println(errorMessage);
@@ -137,4 +150,6 @@ public class Repository {
         });
         return isLoggedIn;
     }
+    
+
 }
