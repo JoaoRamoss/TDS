@@ -23,7 +23,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBc18TerClZKd8gRZLMmxQgUaijDhHE4_0" />
 
-        <!--
         <activity
             android:name=".UI.Login"
             android:exported="true">
@@ -34,16 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".UI.Register"/>
-        -->
-        <activity
-            android:name=".UI.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".UI.MainActivity"/>
 
     </application>
 

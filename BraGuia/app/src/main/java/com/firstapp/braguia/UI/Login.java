@@ -58,15 +58,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         switch(v.getId())
         {
             case R.id.btn_login:
-                System.out.println(String.valueOf(editTextEmail.getText()) + String.valueOf(editTextPassword.getText()));
-                Boolean result = viewModel.login(String.valueOf(editTextEmail.getText()), String.valueOf(editTextPassword.getText()));
-                System.out.println("TOU AQUI");
-                System.out.println(result);
-
-                if (result){
-                    Intent intent = new Intent(v.getContext(), MainActivity.class);
-                    startActivity(intent);
-                }
+                viewModel.login(String.valueOf(editTextEmail.getText()), String.valueOf(editTextPassword.getText()))
+                        .observe(Login.this, new Observer<Boolean>() {
+                            @Override
+                            public void onChanged(Boolean loginResult) {
+                                if (loginResult) {
+                                    startActivity(new Intent(Login.this, MainActivity.class));
+                                    finish();
+                                }
+                            }
+                        });
                 break;
 
             case R.id.registerNow:

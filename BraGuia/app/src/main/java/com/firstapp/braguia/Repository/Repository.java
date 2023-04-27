@@ -1,24 +1,18 @@
 package com.firstapp.braguia.Repository;
-import static androidx.fragment.app.FragmentManager.TAG;
 
 import android.app.Application;
-import android.util.Log;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.firstapp.braguia.Model.Api;
-import com.firstapp.braguia.Model.LoginBody;
-import com.firstapp.braguia.Model.LoginResponse;
 import com.firstapp.braguia.Model.Trail;
 import com.firstapp.braguia.Model.TrailDao;
 import com.firstapp.braguia.Model.TrailRoomDatabase;
-import com.google.android.gms.common.util.JsonUtils;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -28,9 +22,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Repository{
+public class Repository {
     private final TrailDao localTrailDao;
     private Api api;
+
+    SharedPreferences sharedPreferences;
 
     private static final String BASE_URL = "http://192.168.85.186";
 
@@ -59,6 +55,7 @@ public class Repository{
         localTrailDao = db.trailDao();
         allLocalTrails = localTrailDao.getAlphabetizedTrails();
         allTrails = getTrails();
+        this.sharedPreferences =  application.getApplicationContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
 
     }
 
@@ -95,9 +92,9 @@ public class Repository{
         });
     }
 
-    public Boolean loginRemote(String user, String pass){
+    public LiveData<Boolean> loginRemote(String user, String pass){
 
-        isLogin.setValue(false);
+        MutableLiveData<Boolean> isLoggedIn = new MutableLiveData<>();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL + "/")
@@ -109,23 +106,23 @@ public class Repository{
         initiateLogin.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
                 if(response.isSuccessful()){
-                    try {
-                        String jwtToken = response.body().string();
-                        System.out.println(jwtToken);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    System.out.println(response.body());
-                    isLogin.setValue(true);
+                    String csrfToken = response.headers().get("Set-Cookie").split(";")[0];
+                    String sessionId = response.headers().get("Set-Cookie").split(";")[1];
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("csrfToken", csrfToken);
+                    editor.putString("sessionId", sessionId);
+                    editor.apply();
+
+                    isLoggedIn.setValue(true);
                 }
                 else {
-                    System.out.println("n deu");
                     int errorCode = response.code();
                     try {
                         String errorMessage = response.errorBody().string();
                         System.out.println(errorMessage);
+                        isLoggedIn.setValue(false);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -138,10 +135,6 @@ public class Repository{
 
             }
         });
-
-        System.out.println(isLogin.getValue());
-
-        return isLogin.getValue();
-
+        return isLoggedIn;
     }
 }

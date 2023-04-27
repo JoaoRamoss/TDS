@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="https://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        xmlns:card_view="https://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="139dp"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         card_view:cardBackgroundColor="grey"
         card_view:cardCornerRadius="15dp"
@@ -22,14 +22,14 @@
 
             <ImageView
                 android:id="@+id/trailImage"
-                android:layout_width="222dp"
-                android:layout_height="match_parent"
+                android:layout_width="200dp"
+                android:layout_height="157dp"
                 android:layout_weight="1"
                 android:contentDescription="@string/trail_image"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"
                 android:paddingStart="3dp"
+                android:paddingTop="3dp"
                 android:paddingEnd="3dp"
+                android:paddingBottom="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -53,9 +53,12 @@
                 <TextView
                     android:id="@+id/trailDesc"
                     android:layout_width="match_parent"
-                    android:layout_height="71dp"
+                    android:layout_height="79dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="4"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="@string/trail_description" />
@@ -64,7 +67,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:baselineAligned="false"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_gravity="bottom"
+                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -75,7 +80,7 @@
 
                         <TextView
                             android:id="@+id/durationIndicator"
-                            android:layout_width="45dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="3dp"
                             android:layout_weight="1"
@@ -85,7 +90,7 @@
 
                         <TextView
                             android:id="@+id/trailDuration"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textSize="12sp"
@@ -102,7 +107,7 @@
 
                         <TextView
                             android:id="@+id/diffIndicator"
-                            android:layout_width="15dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="3dp"
                             android:layout_weight="1"
@@ -113,7 +118,7 @@
 
                         <TextView
                             android:id="@+id/trailDiff"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textSize="12sp"
