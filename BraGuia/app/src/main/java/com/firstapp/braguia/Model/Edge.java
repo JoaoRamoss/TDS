@@ -2,9 +2,11 @@ package com.firstapp.braguia.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 import kotlin.jvm.internal.SerializedIr;
 
-public class Edge {
+public class Edge implements Serializable {
     @SerializedName("id")
     private int id;
     @SerializedName("edge_start")

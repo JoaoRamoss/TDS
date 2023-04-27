@@ -2,7 +2,9 @@ package com.firstapp.braguia.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Pin {
+import java.io.Serializable;
+
+public class Pin implements Serializable {
     @SerializedName("id")
     private int id;
     @SerializedName("pin_name")

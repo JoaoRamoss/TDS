@@ -137,6 +137,7 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
             case R.id.route:
                 // Handle the click on the Home menu item
                 navigateToRouteFragment();
+                return true;
             case R.id.home:
                 // Handle the click on the Home menu item
                 navigateToHomeFragment();
@@ -144,6 +145,7 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
             case R.id.emergency:
                 // Handle the click on the Emergency menu item
                 EmergencyCall.makeEmergencyCall(getContext());
+                return true;
             default:
                 return false;
         }
