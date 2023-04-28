@@ -1,6 +1,7 @@
 package com.firstapp.braguia.UI;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -39,6 +40,7 @@ public class Register extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
     }
 
     @Override
@@ -51,6 +53,8 @@ public class Register extends AppCompatActivity {
         buttonReg = findViewById(R.id.btn_registar);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

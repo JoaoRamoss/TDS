@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,6 +25,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TrailListFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener, TrailRecyclerViewAdapter.ItemClickListener {
 
@@ -30,6 +34,8 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
     private int mColumnCount = 1;
     private static List<Trail> trails = new ArrayList<>();
     private static boolean isLoaded = false;
+
+    private SearchView searchbar;
 
     private TrailRecyclerViewAdapter adapter;
 
@@ -53,6 +59,20 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
         RecyclerView recvView = (RecyclerView) view.findViewById(R.id.recyclerview);
         recvView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recvView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        searchbar = view.findViewById(R.id.search);
+        searchbar.clearFocus();
+        searchbar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
 
         adapter = new TrailRecyclerViewAdapter(new ArrayList<>(), this);
         recvView.setAdapter(adapter);
@@ -62,7 +82,7 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
             @Override
             public void onChanged(List<Trail> trails) {
                 adapter.setTrails(trails);
-                TrailListFragment.trails = trails; // Adicione esta linha para atualizar a variável 'trails'
+                TrailListFragment.trails = trails;
             }
         });
 
@@ -112,11 +132,28 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
 
     @Override
     public void onItemClick(int position) {
-        Trail selectedTrail = trails.get(position);
+        Trail selectedTrail = adapter.getmTrails().get(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable("selectedTrail", (Serializable) selectedTrail);
         Navigation.findNavController(getView()).navigate(R.id.action_trailListFragment_to_trailDetailsFragment, bundle);
     }
 
 
+    private void filterList(String newText) {
+        String query = Pattern.quote(newText);
+        String regex = "\\b" + query + "\\w*";
+
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+
+        List<Trail> filteredList = new ArrayList<>();
+        for (Trail t : this.trails){
+            Matcher matcher = pattern.matcher(t.getTrail_name());
+            Matcher matcher2 = pattern.matcher(t.getTrail_desc());
+            if (matcher.find() || matcher2.find()){
+                filteredList.add(t);
+            }
+        }
+
+        adapter.setTrails(filteredList);
+    }
 }

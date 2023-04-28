@@ -30,7 +30,7 @@ public class Repository {
 
     SharedPreferences sharedPreferences;
 
-    private static final String BASE_URL = "http://192.168.85.186";
+    private static final String BASE_URL = "https://c5a2-193-137-92-29.eu.ngrok.io";
 
 
     //All trails stored locally

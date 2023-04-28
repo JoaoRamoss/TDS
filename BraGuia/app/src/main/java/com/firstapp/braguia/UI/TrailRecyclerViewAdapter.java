@@ -29,6 +29,10 @@ public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecycler
         itemClickListener = ic;
     }
 
+    public List<Trail> getmTrails() {
+        return mTrails;
+    }
+
     @Override
     public TrailViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);

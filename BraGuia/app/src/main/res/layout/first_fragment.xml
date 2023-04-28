@@ -91,17 +91,18 @@
 
                 <!-- LinearLayout children -->
 
+
                 <TextView
                     android:id="@+id/textView3"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:maxWidth="400dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_background"
                     android:padding="15dp"
                     android:text="@string/Apresentação"
                     android:textColor="@color/our_black"
                     android:textSize="18dp" />
-
 
                 <TextView
                     android:id="@+id/textView2"
