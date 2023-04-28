@@ -85,6 +85,10 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
             case R.id.emergency:
                 // Handle the click on the Emergency menu item
                 EmergencyCall.makeEmergencyCall(getContext());
+                return true;
+            case R.id.menu:
+                navigateToMenuFragment();
+                return true;
             default:
                 return false;
         }
@@ -93,8 +97,10 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
     private void navigateToHomeFragment() {
         // Navigate to the HomeFragment
         Navigation.findNavController(getView()).navigate(R.id.action_TrailList_to_FirstFragment);
+    }
 
-
+    private void navigateToMenuFragment(){
+        Navigation.findNavController(this.getView()).navigate(R.id.action_TrailList_to_MenuFragment);
     }
 
 

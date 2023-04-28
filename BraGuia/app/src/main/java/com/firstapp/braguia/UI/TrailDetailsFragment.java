@@ -146,6 +146,9 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
                 // Handle the click on the Emergency menu item
                 EmergencyCall.makeEmergencyCall(getContext());
                 return true;
+            case R.id.menu:
+                navigateToMenuFragment();
+                return true;
             default:
                 return false;
         }
@@ -159,5 +162,9 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
     private void navigateToRouteFragment() {
         // Navigate to the HomeFragment
         Navigation.findNavController(getView()).navigate(R.id.action_trailDetailsFragment_to_trailList);
+    }
+
+    private void navigateToMenuFragment(){
+        Navigation.findNavController(this.getView()).navigate(R.id.action_trailDetailsFragment_to_MenuFragment);
     }
 }

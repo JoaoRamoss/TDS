@@ -11,6 +11,7 @@ import com.firstapp.braguia.Repository.Repository;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 public class ViewModel extends AndroidViewModel {
@@ -38,4 +39,8 @@ public class ViewModel extends AndroidViewModel {
     }
 
     public void insert (Trail trail) {mRepository.insert(trail);}
+
+    public Map<String, ?> getCookies(){return mRepository.getCookies();}
+
+    public void clearCookies(){mRepository.clearCookies();}
 }

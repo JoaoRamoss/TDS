@@ -81,6 +81,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/loginNow"
-        android:text="Click to login"/>
+        android:text="Pressiona para fazer login"/>
 
 </LinearLayout>

@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_TrailList"
             app:destination="@id/TrailList" />
+        <action
+            android:id="@+id/action_FirstFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
     </fragment>
 
     <fragment android:id="@+id/TrailList"
@@ -24,6 +27,9 @@
         <action
             android:id="@+id/action_trailListFragment_to_trailDetailsFragment"
             app:destination="@id/trailDetailsFragment" />
+        <action
+            android:id="@+id/action_TrailList_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
 
     </fragment>
 
@@ -40,7 +46,24 @@
         <action
             android:id="@+id/action_trailDetailsFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_trailDetailsFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/MenuFragment"
+        android:name="com.firstapp.braguia.UI.Menu"
+        android:label="menu"
+        tools:layout="@layout/menu">
+        <action
+            android:id="@+id/action_MenuFragment_to_TrailList"
+            app:destination="@id/TrailList" />
+        <action
+            android:id="@+id/action_MenuFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+
 
 </navigation>

@@ -15,6 +15,7 @@ import com.firstapp.braguia.Model.TrailRoomDatabase;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -150,6 +151,12 @@ public class Repository {
         });
         return isLoggedIn;
     }
-    
 
+    public Map<String, ?> getCookies(){return sharedPreferences.getAll();}
+
+    public void clearCookies(){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
 }
