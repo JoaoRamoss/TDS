@@ -59,12 +59,13 @@
             android:layout_marginBottom="16dp"
             android:text="Perfil" />
 
+
         <Button
-            android:id="@+id/button_definicoes"
+            android:id="@+id/button_historico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Definições" />
+            android:text="Histórico" />
 
         <Button
             android:id="@+id/button_premium"
@@ -74,17 +75,19 @@
             android:text="Premium" />
 
         <Button
-            android:id="@+id/button_mudar_tema"
+            android:id="@+id/button_definicoes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Mudar Tema" />
+            android:text="Definições" />
 
         <Button
             android:id="@+id/button_contactenos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Contacte-nos" />
+
+
     </LinearLayout>
 
     <Button
