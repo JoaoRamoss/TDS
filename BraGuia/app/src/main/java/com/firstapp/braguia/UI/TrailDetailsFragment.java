@@ -27,15 +27,34 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.graphics.Color;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import android.location.Location;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnFailureListener;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.widget.Toast;
+
+
 
 import java.util.ArrayList;
 
 public class TrailDetailsFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener, OnMapReadyCallback {
 
+    private ArrayList<LatLng> locations;
     private TextView trailTitle;
     private TextView trailDescription;
     private MapView mapView;
     private GoogleMap googleMap;
+
+    private FusedLocationProviderClient fusedLocationClient;
+
     private Button startTrailButton;
 
     private BottomNavigationView bottomNavigationView;
@@ -43,6 +62,8 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        locations = new ArrayList<>();
         View view = inflater.inflate(R.layout.content_trail, container, false);
 
         trailTitle = view.findViewById(R.id.route_title);
@@ -54,9 +75,14 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
         trailTitle.setText(trail.getTrail_name());
         trailDescription.setText(trail.getTrail_desc());
 
-        // Inicializar o MapView e tratar do botão de iniciar a rota
+        // Inicializar o MapView
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+
+        //inicializar o  FusedLocationProviderClient
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+
 
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this);
@@ -67,9 +93,10 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
         startTrailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Código para iniciar a rota
+                openGoogleMapsNavigation(locations);
             }
         });
+
 
         return view;
     }
@@ -102,11 +129,12 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
         this.googleMap = googleMap;
-
+        requestLocationPermission();
 
         Trail trail = (Trail) getArguments().getSerializable("selectedTrail");
 
-        ArrayList<LatLng> locations = new ArrayList<>();
+        //adicionar localizacao antes disto tudo
+
 
         for(Edge e : trail.getEdges()) {
             LatLng trailLocation_start = new LatLng(e.getEdge_start().getPin_lat(),e.getEdge_start().getPin_lng());
@@ -116,6 +144,7 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
             googleMap.addMarker(new MarkerOptions().position(trailLocation_start));
             googleMap.addMarker(new MarkerOptions().position(trailLocation_end));
         }
+
 
         // Polyline to define the itenerary
         PolylineOptions polylineOptions = new PolylineOptions()
@@ -128,7 +157,82 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
         // set Camera
         float zoomLevel = 11.0f;
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locations.get(0), zoomLevel));
+
     }
+
+
+    private void requestLocationPermission() {
+        ArrayList<LatLng> locations = new ArrayList<>();
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }else{
+            getCurrentLocation(new LocationCallback() {
+                @Override
+                public void onLocationReceived(LatLng currentLocation) {
+                    //locations.add(0, currentLocation); // Adicione a localização atual como o primeiro ponto da rota
+                }
+            });
+        }
+
+       // retun locations.get(0);
+    }
+
+
+
+
+
+    public interface LocationCallback {
+        void onLocationReceived(LatLng currentLocation);
+    }
+
+
+    private void getCurrentLocation(LocationCallback callback) {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                                callback.onLocationReceived(currentLocation);
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Trate a falha ao obter a localização atual
+                        }
+                    });
+        }
+    }
+
+
+
+    private void openGoogleMapsNavigation(ArrayList<LatLng> locations) {
+        if (locations != null && locations.size() > 1) {
+            StringBuilder waypoints = new StringBuilder("https://www.google.com/maps/dir/?api=1");
+
+            for (int i = 0; i < locations.size(); i++) {
+                waypoints.append("&waypoints=").append(locations.get(i).latitude).append(",").append(locations.get(i).longitude);
+            }
+
+            Uri gmmIntentUri = Uri.parse(waypoints.toString());
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+
+            if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivity(mapIntent);
+            } else {
+                Toast.makeText(getContext(), "Google Maps não está instalado", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(getContext(), "O trajeto não está disponível", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
 
 
     @Override

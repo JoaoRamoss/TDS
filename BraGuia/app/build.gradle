@@ -47,8 +47,9 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 
-    // google maps components
+    // google maps components and location
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
 
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-viewmodel:$rootProject.lifecycleVersion"
