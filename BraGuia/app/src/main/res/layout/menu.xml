@@ -42,8 +42,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="398dp"
-        android:layout_height="449dp"
+        android:layout_width="392dp"
+        android:layout_height="479dp"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
@@ -57,7 +57,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Perfil" />
+            android:padding="15dp"
+            android:text="Perfil"
+            android:textAlignment="textStart"
+            app:icon="@drawable/baseline_account_circle_24" />
 
 
         <Button
@@ -65,35 +68,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Histórico" />
+            android:padding="15dp"
+            android:text="Histórico"
+            android:textAlignment="textStart"
+            app:icon="@drawable/baseline_menu_24" />
 
         <Button
             android:id="@+id/button_premium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Premium" />
+            android:padding="15dp"
+            android:text="Premium"
+            android:textAlignment="textStart"
+            app:icon="@drawable/baseline_workspace_premium_24" />
 
         <Button
             android:id="@+id/button_definicoes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Definições" />
+            android:padding="15dp"
+            android:text="Definições"
+            android:textAlignment="textStart"
+            app:icon="@drawable/baseline_settings_24" />
 
         <Button
             android:id="@+id/button_contactenos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contacte-nos" />
+            android:padding="15dp"
+            android:text="Contacte-nos"
+            android:textAlignment="textStart"
+            app:icon="@drawable/baseline_call_24" />
 
 
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="259dp"
+        android:layout_height="52dp"
         android:backgroundTint="@color/our_red"
         android:text="Logout"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
