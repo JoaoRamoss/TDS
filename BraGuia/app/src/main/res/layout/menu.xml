@@ -60,7 +60,8 @@
             android:padding="15dp"
             android:text="Perfil"
             android:textAlignment="textStart"
-            app:icon="@drawable/baseline_account_circle_24" />
+            app:icon="@drawable/baseline_account_circle_24"
+            android:backgroundTint="@color/our_black"/>
 
 
         <Button
@@ -71,7 +72,8 @@
             android:padding="15dp"
             android:text="Histórico"
             android:textAlignment="textStart"
-            app:icon="@drawable/baseline_menu_24" />
+            app:icon="@drawable/baseline_menu_24"
+            android:backgroundTint="@color/our_black"/>
 
         <Button
             android:id="@+id/button_premium"
@@ -81,7 +83,8 @@
             android:padding="15dp"
             android:text="Premium"
             android:textAlignment="textStart"
-            app:icon="@drawable/baseline_workspace_premium_24" />
+            app:icon="@drawable/baseline_workspace_premium_24"
+            android:backgroundTint="@color/our_black"/>
 
         <Button
             android:id="@+id/button_definicoes"
@@ -91,7 +94,8 @@
             android:padding="15dp"
             android:text="Definições"
             android:textAlignment="textStart"
-            app:icon="@drawable/baseline_settings_24" />
+            app:icon="@drawable/baseline_settings_24"
+            android:backgroundTint="@color/our_black"/>
 
         <Button
             android:id="@+id/button_contactenos"
@@ -100,7 +104,8 @@
             android:padding="15dp"
             android:text="Contacte-nos"
             android:textAlignment="textStart"
-            app:icon="@drawable/baseline_call_24" />
+            app:icon="@drawable/baseline_call_24"
+            android:backgroundTint="@color/our_black"/>
 
 
     </LinearLayout>

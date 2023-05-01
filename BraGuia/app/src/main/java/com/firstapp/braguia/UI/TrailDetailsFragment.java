@@ -67,13 +67,12 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
         View view = inflater.inflate(R.layout.content_trail, container, false);
 
         trailTitle = view.findViewById(R.id.route_title);
-        trailDescription = view.findViewById(R.id.route_description);
         mapView = view.findViewById(R.id.map_view);
         startTrailButton = view.findViewById(R.id.start_route_button);
 
         Trail trail = (Trail) getArguments().getSerializable("selectedTrail");
         trailTitle.setText(trail.getTrail_name());
-        trailDescription.setText(trail.getTrail_desc());
+        //trailDescription.setText(trail.getTrail_desc());
 
         // Inicializar o MapView
         mapView.onCreate(savedInstanceState);
@@ -81,8 +80,6 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
 
         //inicializar o  FusedLocationProviderClient
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-
-
 
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this);
@@ -96,7 +93,6 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
                 openGoogleMapsNavigation(locations);
             }
         });
-
 
         return view;
     }
@@ -177,14 +173,9 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
        // retun locations.get(0);
     }
 
-
-
-
-
     public interface LocationCallback {
         void onLocationReceived(LatLng currentLocation);
     }
-
 
     private void getCurrentLocation(LocationCallback callback) {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
