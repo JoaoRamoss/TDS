@@ -63,7 +63,25 @@
         <action
             android:id="@+id/action_MenuFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_MenuFragment_to_HistoryFragment"
+            app:destination="@id/HistoryFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/HistoryFragment"
+        android:name="com.firstapp.braguia.UI.TrailHistoryFragment"
+        android:label="history"
+        tools:layout="@layout/history_list">
+        <action
+            android:id="@+id/action_HistoryFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
+        <action
+            android:id="@+id/action_HistoryFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_HistoryFragment_to_TrailList"
+            app:destination="@id/TrailList" />
+    </fragment>
 
 </navigation>

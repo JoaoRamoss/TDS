@@ -30,6 +30,8 @@ public class Repository {
 
     SharedPreferences sharedPreferences;
 
+    // http://192.168.85.186 -> Alternative IP
+    // https://c5a2-193-137-92-29.eu.ngrok.io -> Main IP
     private static final String BASE_URL = "https://c5a2-193-137-92-29.eu.ngrok.io";
 
 
@@ -55,7 +57,7 @@ public class Repository {
 
         TrailRoomDatabase db = TrailRoomDatabase.getDatabase(application);
         localTrailDao = db.trailDao();
-        allLocalTrails = localTrailDao.getAlphabetizedTrails();
+        allLocalTrails = localTrailDao.getTrails();
         allTrails = getTrails();
         this.sharedPreferences =  application.getApplicationContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
 
@@ -94,6 +96,11 @@ public class Repository {
         });
     }
 
+    public void deleteHistory(){
+        TrailRoomDatabase.databaseWriteExecutor.execute(() -> {
+            localTrailDao.deleteAll();
+        });
+    }
     public LiveData<Boolean> loginRemote(String user, String pass){
 
         MutableLiveData<Boolean> isLoggedIn = new MutableLiveData<>();

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    app:layoutManager="LinearLayoutManager"
-    tools:context=".UI.TrailListFragment"
-    tools:listitem="@layout/recyclerview_item"
-    app:navGraph="@navigation/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -50,25 +47,40 @@
 
 
     <androidx.appcompat.widget.SearchView
-        android:layout_marginTop="3dp"
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/shadow"
-        tools:layout_editor_absoluteX="0dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="5dp"
-        app:queryHint="Pesquisar ..."
         android:background="@drawable/search_view_bg"
         app:iconifiedByDefault="false"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shadow"
+        app:queryHint="Pesquisar ..." />
+
+    <Button
+        android:id="@+id/clearHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/our_red"
+        android:text="Limpar histórico"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview_history"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
+        android:id="@+id/recyclerview_history"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintBottom_toTopOf="@+id/clearHistory"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -91,4 +103,18 @@
         app:menu="@menu/bottom_nav_menu"
         tools:ignore="VisualLintBounds" />
 
+    <TextView
+        android:id="@+id/emptyMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:text="O histórico está vazio."
+        android:textColor="@color/our_black"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shadow" />
 </androidx.constraintlayout.widget.ConstraintLayout>

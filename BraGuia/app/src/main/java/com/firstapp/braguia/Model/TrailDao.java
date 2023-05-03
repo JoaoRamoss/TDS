@@ -16,6 +16,6 @@ public interface TrailDao {
     @Query("DELETE FROM trail_table")
     void deleteAll();
 
-    @Query("SELECT * FROM trail_table ORDER BY trail_name ASC")
-    LiveData<List<Trail>> getAlphabetizedTrails();
+    @Query("SELECT DISTINCT * FROM trail_table")
+    LiveData<List<Trail>> getTrails();
 }

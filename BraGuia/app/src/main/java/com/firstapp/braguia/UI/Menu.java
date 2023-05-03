@@ -19,12 +19,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Menu extends Fragment implements BottomNavigationView.OnItemSelectedListener{
     private Button logoutButton;
+    private Button historyButton;
     private ViewModel viewmodel;
     private BottomNavigationView bottomNavigationView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.menu, container, false);
         logoutButton = view.findViewById(R.id.btn_logout);
+        historyButton = view.findViewById(R.id.button_historico);
 
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this);
@@ -74,6 +76,13 @@ public class Menu extends Fragment implements BottomNavigationView.OnItemSelecte
             public void onClick(View view) {
                 viewmodel.clearCookies();
                 startActivity(new Intent(getActivity(), Login.class));
+            }
+        });
+
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_MenuFragment_to_HistoryFragment);
             }
         });
     }

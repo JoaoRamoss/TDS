@@ -11,11 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.firstapp.braguia.Model.Edge;
 import com.firstapp.braguia.Model.Trail;
 import com.firstapp.braguia.R;
+import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -44,6 +48,7 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TrailDetailsFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener, OnMapReadyCallback {
 
@@ -55,6 +60,8 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
 
     private FusedLocationProviderClient fusedLocationClient;
 
+    private ViewModel viewmodel;
+
     private Button startTrailButton;
 
     private BottomNavigationView bottomNavigationView;
@@ -65,6 +72,8 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
 
         locations = new ArrayList<>();
         View view = inflater.inflate(R.layout.content_trail, container, false);
+
+        this.viewmodel = new ViewModelProvider(this).get(ViewModel.class);
 
         trailTitle = view.findViewById(R.id.route_title);
         mapView = view.findViewById(R.id.map_view);
@@ -90,6 +99,12 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
         startTrailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Place trail in trails history
+                assert getArguments() != null;
+                Trail trail = (Trail) getArguments().getSerializable("selectedTrail");
+                viewmodel.insert(trail);
+
                 openGoogleMapsNavigation(locations);
             }
         });

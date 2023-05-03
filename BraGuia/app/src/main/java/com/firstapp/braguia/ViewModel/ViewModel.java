@@ -43,4 +43,6 @@ public class ViewModel extends AndroidViewModel {
     public Map<String, ?> getCookies(){return mRepository.getCookies();}
 
     public void clearCookies(){mRepository.clearCookies();}
+
+    public void clearHistory(){mRepository.deleteHistory();}
 }
