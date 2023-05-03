@@ -79,7 +79,7 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
         mapView = view.findViewById(R.id.map_view);
         startTrailButton = view.findViewById(R.id.start_route_button);
 
-        Trail trail = (Trail) getArguments().getSerializable("selectedTrail");
+        Trail trail = (Trail) requireArguments().getSerializable("selectedTrail");
         trailTitle.setText(trail.getTrail_name());
         //trailDescription.setText(trail.getTrail_desc());
 
@@ -141,51 +141,50 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
         MapsInitializer.initialize(getContext());
         this.googleMap = googleMap;
         requestLocationPermission();
+    }
+
+
+
+    private void setupMap() {
+        googleMap.addMarker(new MarkerOptions().position(locations.get(0)));
 
         Trail trail = (Trail) getArguments().getSerializable("selectedTrail");
 
-        //adicionar localizacao antes disto tudo
-
-
-        for(Edge e : trail.getEdges()) {
-            LatLng trailLocation_start = new LatLng(e.getEdge_start().getPin_lat(),e.getEdge_start().getPin_lng());
-            LatLng trailLocation_end = new LatLng(e.getEdge_end().getPin_lat(),e.getEdge_end().getPin_lng());
+        for (Edge e : trail.getEdges()) {
+            LatLng trailLocation_start = new LatLng(e.getEdge_start().getPin_lat(), e.getEdge_start().getPin_lng());
+            LatLng trailLocation_end = new LatLng(e.getEdge_end().getPin_lat(), e.getEdge_end().getPin_lng());
             locations.add(trailLocation_start);
             locations.add(trailLocation_end);
             googleMap.addMarker(new MarkerOptions().position(trailLocation_start));
             googleMap.addMarker(new MarkerOptions().position(trailLocation_end));
         }
 
-
-        // Polyline to define the itenerary
+        // Polyline to define the itinerary
         PolylineOptions polylineOptions = new PolylineOptions()
                 .addAll(locations)
-                .width(5f) //
+                .width(5f)
                 .color(Color.parseColor("#d83349"));
 
         googleMap.addPolyline(polylineOptions);
 
-        // set Camera
+        // Set Camera
         float zoomLevel = 11.0f;
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locations.get(0), zoomLevel));
-
     }
 
 
     private void requestLocationPermission() {
-        ArrayList<LatLng> locations = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }else{
+        } else {
             getCurrentLocation(new LocationCallback() {
                 @Override
                 public void onLocationReceived(LatLng currentLocation) {
-                    //locations.add(0, currentLocation); // Adicione a localização atual como o primeiro ponto da rota
+                    locations.add(0,currentLocation);
+                    setupMap();
                 }
             });
         }
-
-       // retun locations.get(0);
     }
 
     public interface LocationCallback {
@@ -207,11 +206,13 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            // Trate a falha ao obter a localização atual
+                            // O que fazer quando falha?
                         }
                     });
         }
     }
+
+
 
 
 
