@@ -3,12 +3,15 @@ package com.firstapp.braguia.Model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import kotlin.jvm.internal.SerializedIr;
 
 public class Edge implements Serializable {
     @SerializedName("id")
     private int id;
+
     @SerializedName("edge_start")
     private Pin edge_start;
     @SerializedName("edge_end")

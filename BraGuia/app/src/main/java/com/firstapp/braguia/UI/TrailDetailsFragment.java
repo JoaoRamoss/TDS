@@ -46,7 +46,7 @@ import android.net.Uri;
 import android.widget.Toast;
 
 
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -55,6 +55,8 @@ import java.util.Set;
 public class TrailDetailsFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener, OnMapReadyCallback {
 
     private ArrayList<LatLng> locations;
+
+    private Button moreButton;
     private TextView trailTitle;
     private TextView trailDescription;
     private MapView mapView;
@@ -80,11 +82,21 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
         trailTitle = view.findViewById(R.id.route_title);
         mapView = view.findViewById(R.id.map_view);
         startTrailButton = view.findViewById(R.id.start_route_button);
+        moreButton = view.findViewById(R.id.info);
 
         Trail trail = (Trail) requireArguments().getSerializable("selectedTrail");
         trailTitle.setText(trail.getTrail_name());
         //trailDescription.setText(trail.getTrail_desc());
 
+        moreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Trail selectedTrail = trail;
+                        Bundle bundle = new Bundle();
+                bundle.putSerializable("selectedTrail", (Serializable) selectedTrail);
+                Navigation.findNavController(view).navigate(R.id.action_trailDetailsFragment_to_trail_media, bundle);
+            }
+        });
         // Inicializar o MapView
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);

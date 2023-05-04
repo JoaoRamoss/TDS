@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_trailDetailsFragment_to_MenuFragment"
             app:destination="@id/MenuFragment" />
+        <action
+            android:id="@+id/action_trailDetailsFragment_to_trail_media"
+            app:destination="@id/trail_media" />
 
     </fragment>
 
@@ -82,6 +85,22 @@
         <action
             android:id="@+id/action_HistoryFragment_to_TrailList"
             app:destination="@id/TrailList" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/trail_media"
+        android:label="trail media"
+        android:name="com.firstapp.braguia.UI.TrailMediaFragment"
+        tools:layout="@layout/trail_media">
+        <action
+            android:id="@+id/action_trail_media_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_trail_media_to_TrailList"
+            app:destination="@id/TrailList" />
+        <action
+            android:id="@+id/action_trail_media_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
     </fragment>
 
 </navigation>

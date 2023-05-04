@@ -3,10 +3,16 @@ package com.firstapp.braguia.Model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pin implements Serializable {
     @SerializedName("id")
     private int id;
+
+    @SerializedName("media")
+    private List<Media> media;
+
     @SerializedName("pin_name")
     private String pin_name;
     @SerializedName("pin_desc")
@@ -20,6 +26,7 @@ public class Pin implements Serializable {
 
     public Pin() {
         this.id = -1;
+        this.media = new ArrayList<>();
         this.pin_name = "";
         this.pin_desc="";
         this.pin_lat = 0.0;
@@ -27,8 +34,9 @@ public class Pin implements Serializable {
         this.pin_alt = 0.0;
     }
 
-    public Pin(int id, String pin_name, String pin_desc, double pin_lat, double pin_lng, double pin_alt) {
+    public Pin(int id, List<Media> media, String pin_name, String pin_desc, double pin_lat, double pin_lng, double pin_alt) {
         this.id = id;
+        this.media = media;
         this.pin_name = pin_name;
         this.pin_desc = pin_desc;
         this.pin_lat = pin_lat;
@@ -50,6 +58,10 @@ public class Pin implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    public List<Media> getMedia() {
+        return media;
     }
 
     public String getPin_desc() {
@@ -84,4 +96,7 @@ public class Pin implements Serializable {
         this.pin_name = pin_name;
     }
 
+    public void setMedia(List<Media> media) {
+        this.media = media;
+    }
 }
