@@ -48,7 +48,9 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TrailDetailsFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener, OnMapReadyCallback {
 
@@ -220,10 +222,31 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
         if (locations != null && locations.size() > 1) {
             StringBuilder waypoints = new StringBuilder("https://www.google.com/maps/dir/?api=1");
 
-            for (int i = 0; i < locations.size(); i++) {
-                waypoints.append("&waypoints=").append(locations.get(i).latitude).append(",").append(locations.get(i).longitude);
+            // Append origin and destination
+            waypoints.append("&origin=").append(locations.get(0).latitude).append(",").append(locations.get(0).longitude);
+            waypoints.append("&destination=").append(locations.get(locations.size() - 1).latitude).append(",").append(locations.get(locations.size() - 1).longitude);
+
+            // Append waypoints
+            if (locations.size() > 2) {
+                waypoints.append("&waypoints=");
+                Set<String> uniqueWaypoints = new HashSet<String>(); // Store unique waypoints in a Set (Fixes issue where there was waypoint repetition)
+                for (int i = 1; i < locations.size() - 1; i++) {
+                    LatLng location = locations.get(i);
+                    String coordinateString = location.latitude + "," + location.longitude;
+                    if (!uniqueWaypoints.contains(coordinateString)) {
+                        waypoints.append(coordinateString);
+                        uniqueWaypoints.add(coordinateString);
+                        if (i < locations.size() - 2) {
+                            waypoints.append("|");
+                        }
+                    }
+                }
             }
 
+            // Append travel mode
+            waypoints.append("&travelmode=driving");
+
+            // Convert waypoints to Uri
             Uri gmmIntentUri = Uri.parse(waypoints.toString());
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");

@@ -58,6 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/shadow"
         app:queryHint="Pesquisar ..." />
 
@@ -67,6 +68,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/our_red"
         android:text="Limpar histórico"
+        android:visibility="gone"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +111,6 @@
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:text="O histórico está vazio."
-        android:textColor="@color/our_black"
         android:textSize="20sp"
         android:visibility="gone"
         android:textStyle="bold"
