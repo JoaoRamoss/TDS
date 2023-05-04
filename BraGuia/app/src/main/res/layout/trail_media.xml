@@ -72,10 +72,13 @@
         app:menu="@menu/bottom_nav_menu"
         tools:ignore="VisualLintBounds" />
 
-    <ScrollView
+    <HorizontalScrollView
         android:id="@+id/image_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -83,11 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.105">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" />
-    </ScrollView>
+    </HorizontalScrollView>
 
 
     <TextView
