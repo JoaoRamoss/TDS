@@ -161,6 +161,7 @@ public class Repository {
 
     public Map<String, ?> getCookies(){return sharedPreferences.getAll();}
 
+
     public void clearCookies(){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();

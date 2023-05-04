@@ -44,6 +44,8 @@ public class TrailMediaFragment extends Fragment implements BottomNavigationView
     private List<Media> media;
     private Trail selectedTrail;
     private TextView description;
+
+    private TextView title;
     private BottomNavigationView bottomNavigationView;
 
     private HorizontalScrollView scrollView;
@@ -62,9 +64,11 @@ public class TrailMediaFragment extends Fragment implements BottomNavigationView
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this);
         scrollView = view.findViewById(R.id.image_scroll);
+        title = view.findViewById(R.id.title);
 
         this.selectedTrail = (Trail) requireArguments().getSerializable("selectedTrail");
 
+        this.title.setText(selectedTrail.getTrail_name());
         this.media = getMediaFromTrail();
 
         this.description.setMovementMethod(new ScrollingMovementMethod());
