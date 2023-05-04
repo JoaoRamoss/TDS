@@ -257,7 +257,6 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
 
             // Append travel mode
             waypoints.append("&travelmode=driving");
-
             // Convert waypoints to Uri
             Uri gmmIntentUri = Uri.parse(waypoints.toString());
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
