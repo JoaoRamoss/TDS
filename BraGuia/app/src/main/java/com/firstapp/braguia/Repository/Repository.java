@@ -1,5 +1,8 @@
 package com.firstapp.braguia.Repository;
 
+import static android.app.PendingIntent.getActivity;
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,6 +14,9 @@ import com.firstapp.braguia.Model.Api;
 import com.firstapp.braguia.Model.Trail;
 import com.firstapp.braguia.Model.TrailDao;
 import com.firstapp.braguia.Model.TrailRoomDatabase;
+import com.firstapp.braguia.Model.User;
+import com.firstapp.braguia.Model.UserDao;
+import com.firstapp.braguia.Model.UserRoomDatabase;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,6 +32,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Repository {
     private final TrailDao localTrailDao;
+
+    private final UserDao localUserDao;
     private Api api;
 
     SharedPreferences sharedPreferences;
@@ -56,10 +64,13 @@ public class Repository {
         api = retrofit.create(Api.class);
 
         TrailRoomDatabase db = TrailRoomDatabase.getDatabase(application);
+        UserRoomDatabase dbu = UserRoomDatabase.getDatabase(application);
+        localUserDao = dbu.userDao();
         localTrailDao = db.trailDao();
         allLocalTrails = localTrailDao.getTrails();
         allTrails = getTrails();
-        this.sharedPreferences =  application.getApplicationContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+        this.sharedPreferences =  application.getApplicationContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
+
 
     }
 
@@ -167,5 +178,47 @@ public class Repository {
         editor.clear();
         editor.apply();
     }
+
+
+    /*
+    public LiveData<List<User>> getUser() throws IOException {
+        MutableLiveData<List<User>> userLiveData = new MutableLiveData<>();
+        Map<String, ?> cookies = getCookies();
+        System.out.println("merda"+cookies.values());
+        Call<List<User>>  call = api.getUser(cookies.get("csrfToken").toString(), cookies.get("sessionId").toString());
+
+
+        call.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if (response.isSuccessful()){
+                    userLiveData.setValue(response.body());
+                }
+                else {
+                    System.out.println("Oops!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                System.out.println(t);
+            }
+        });
+
+        return userLiveData;
+    }
+
+    public void insert(User user) {
+        UserRoomDatabase.databaseWriteExecutor.execute(() -> {
+            localUserDao.insert(user);
+        });
+    }
+
+    public void deleteUser(){
+        UserRoomDatabase.databaseWriteExecutor.execute(() -> {
+            localUserDao.deleteAll();
+        });
+    }
+*/
 
 }

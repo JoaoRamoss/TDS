@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.firstapp.braguia.Model.Trail;
+import com.firstapp.braguia.Model.User;
 import com.firstapp.braguia.Repository.Repository;
 
 import java.io.IOException;
@@ -14,16 +15,20 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ViewModel extends AndroidViewModel {
+public class ViewModel extends AndroidViewModel{
     private final Repository mRepository;
     private final LiveData<List<Trail>> mAllTrails;
     private final LiveData<List<Trail>> apiTrails;
+
+    //private final LiveData<List<User>> apiUser;
+
 
     public ViewModel (Application application) throws IOException {
         super(application);
         mRepository = new Repository(application);
         mAllTrails = mRepository.getAllLocalTrails();
         apiTrails = mRepository.getTrails();
+        //apiUser = mRepository.getUser();
     }
 
     public LiveData<Boolean> login(String email, String password){
@@ -45,4 +50,15 @@ public class ViewModel extends AndroidViewModel {
     public void clearCookies(){mRepository.clearCookies();}
 
     public void clearHistory(){mRepository.deleteHistory();}
+
+    /*
+    public LiveData<List<User>> getUser(){
+        return this.apiUser;
+    }
+
+    public void insert (User user) {mRepository.insert(user);}
+
+    public void delete () {mRepository.deleteUser();}
+
+     */
 }

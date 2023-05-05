@@ -12,11 +12,13 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.firstapp.braguia.Model.User;
 import com.firstapp.braguia.Utils.CookieValidation;
 import com.firstapp.braguia.R;
 import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.List;
 import java.util.Map;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
@@ -49,6 +51,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         viewModel = new ViewModelProvider(this).get(ViewModel.class);
 
         Map<String, ?> cookies = viewModel.getCookies();
+        System.out.println("merda1"+cookies);
         if (!cookies.isEmpty()) {
             if(CookieValidation.validateCookies(cookies.get("csrfToken").toString(), cookies.get("sessionId").toString())){
                 startActivity(new Intent(Login.this, MainActivity.class));

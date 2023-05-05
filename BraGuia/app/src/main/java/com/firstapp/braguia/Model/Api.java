@@ -25,5 +25,5 @@ public interface Api {
 
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     @GET("user")
-    Call<ResponseBody> getUser(@Header("csrftoken") String csrf, @Header("sessionid") String session);
+    Call<List<User>> getUser(@Header("csrftoken") String csrf, @Header("sessionid") String session);
 }
