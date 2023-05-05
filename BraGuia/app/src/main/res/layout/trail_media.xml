@@ -73,37 +73,54 @@
         app:menu="@menu/bottom_nav_menu"
         tools:ignore="VisualLintBounds" />
 
-    <HorizontalScrollView
-        android:id="@+id/image_scroll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.105"
-        >
-
-    </HorizontalScrollView>
 
     <TextView
         android:id="@+id/title"
         android:layout_width="334dp"
         android:layout_height="33dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
         android:text="TextView"
         android:textColor="@color/our_black"
         android:textSize="25dp"
         android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/image_scroll"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="332dp"
+        android:layout_height="235dp"
+        android:layout_marginTop="20dp"
+
+        app:cardBackgroundColor="@color/our_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        card_view:cardCornerRadius="15dp"
+        card_view:cardElevation="5dp"
+        tools:ignore="MissingConstraints">
+
+
+        <HorizontalScrollView
+            android:id="@+id/image_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.105"
+            >
+
+        </HorizontalScrollView>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/textView4"
@@ -127,11 +144,11 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_scroll"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2"
         app:layout_constraintVertical_bias="0.843"
-        tools:ignore="MissingConstraints"
         card_view:cardCornerRadius="15dp"
-        card_view:cardElevation="5dp">
+        card_view:cardElevation="5dp"
+        tools:ignore="MissingConstraints">
 
 
         <TextView
@@ -143,7 +160,7 @@
             android:scrollbars="vertical"
             android:text="Descrição"
             android:textColor="@color/white"
-            android:textSize="15dp"/>
+            android:textSize="15dp" />
 
 
     </androidx.cardview.widget.CardView>
