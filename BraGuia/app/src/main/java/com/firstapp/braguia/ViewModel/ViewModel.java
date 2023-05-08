@@ -20,7 +20,7 @@ public class ViewModel extends AndroidViewModel{
     private final LiveData<List<Trail>> mAllTrails;
     private final LiveData<List<Trail>> apiTrails;
 
-    //private final LiveData<List<User>> apiUser;
+    private final LiveData<User> apiUser;
 
 
     public ViewModel (Application application) throws IOException {
@@ -28,7 +28,7 @@ public class ViewModel extends AndroidViewModel{
         mRepository = new Repository(application);
         mAllTrails = mRepository.getAllLocalTrails();
         apiTrails = mRepository.getTrails();
-        //apiUser = mRepository.getUser();
+        apiUser = mRepository.getUser();
     }
 
     public LiveData<Boolean> login(String email, String password){
@@ -51,14 +51,18 @@ public class ViewModel extends AndroidViewModel{
 
     public void clearHistory(){mRepository.deleteHistory();}
 
-    /*
-    public LiveData<List<User>> getUser(){
+
+    public LiveData<User> getUser(){
         return this.apiUser;
+    }
+
+    public LiveData<User> getLocalUser(){
+        return mRepository.getLocalUser();
     }
 
     public void insert (User user) {mRepository.insert(user);}
 
     public void delete () {mRepository.deleteUser();}
 
-     */
+
 }

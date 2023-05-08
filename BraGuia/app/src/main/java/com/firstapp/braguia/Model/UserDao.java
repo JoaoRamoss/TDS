@@ -16,6 +16,6 @@ public interface UserDao {
     @Query("DELETE FROM user_table")
     void deleteAll();
 
-    @Query("SELECT DISTINCT * FROM user_table")
-    LiveData<List<User>> getUser();
+    @Query("SELECT DISTINCT * FROM user_table LIMIT 1")
+    LiveData<User> getUser();
 }

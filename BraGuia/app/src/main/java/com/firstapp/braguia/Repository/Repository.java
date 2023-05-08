@@ -17,12 +17,14 @@ import com.firstapp.braguia.Model.TrailRoomDatabase;
 import com.firstapp.braguia.Model.User;
 import com.firstapp.braguia.Model.UserDao;
 import com.firstapp.braguia.Model.UserRoomDatabase;
+import com.firstapp.braguia.Utils.CookieValidation;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.Cookie;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +47,8 @@ public class Repository {
 
     //All trails stored locally
     private final LiveData<List<Trail>> allLocalTrails;
+
+    private final LiveData<User> localUser;
 
     //All trails from API
     private LiveData<List<Trail>> allTrails;
@@ -69,9 +73,8 @@ public class Repository {
         localTrailDao = db.trailDao();
         allLocalTrails = localTrailDao.getTrails();
         allTrails = getTrails();
+        localUser = localUserDao.getUser();
         this.sharedPreferences =  application.getApplicationContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
-
-
     }
 
     public LiveData<List<Trail>> getAllLocalTrails(){return allLocalTrails;}
@@ -180,31 +183,32 @@ public class Repository {
     }
 
 
-    /*
-    public LiveData<List<User>> getUser() throws IOException {
-        MutableLiveData<List<User>> userLiveData = new MutableLiveData<>();
+
+    public LiveData<User> getUser() throws IOException {
+        MutableLiveData<User> userLiveData = new MutableLiveData<>();
         Map<String, ?> cookies = getCookies();
-        System.out.println("merda"+cookies.values());
-        Call<List<User>>  call = api.getUser(cookies.get("csrfToken").toString(), cookies.get("sessionId").toString());
 
-
-        call.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                if (response.isSuccessful()){
-                    userLiveData.setValue(response.body());
+        if (!cookies.isEmpty()) {
+            String csrf = CookieValidation.extractCookieValue("csrftoken", cookies.get("csrfToken").toString());
+            String session = CookieValidation.extractCookieValue("sessionid", cookies.get("sessionId").toString());
+            Call<User> call = api.getUser(CookieValidation.getFormatedCookies(csrf, session));
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful()) {
+                        userLiveData.setValue(response.body());
+                    } else {
+                        System.out.println(response);
+                    }
                 }
-                else {
-                    System.out.println("Oops!");
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    System.out.println("Error!!");
+                    System.out.println(t);
                 }
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                System.out.println(t);
-            }
-        });
-
+            });
+        }
         return userLiveData;
     }
 
@@ -219,6 +223,10 @@ public class Repository {
             localUserDao.deleteAll();
         });
     }
-*/
+
+    public LiveData<User> getLocalUser(){
+        return this.localUser;
+    }
+
 
 }

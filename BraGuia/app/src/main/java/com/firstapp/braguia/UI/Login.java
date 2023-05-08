@@ -51,7 +51,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         viewModel = new ViewModelProvider(this).get(ViewModel.class);
 
         Map<String, ?> cookies = viewModel.getCookies();
-        System.out.println("merda1"+cookies);
         if (!cookies.isEmpty()) {
             if(CookieValidation.validateCookies(cookies.get("csrfToken").toString(), cookies.get("sessionId").toString())){
                 startActivity(new Intent(Login.this, MainActivity.class));

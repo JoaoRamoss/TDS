@@ -75,6 +75,7 @@ public class Menu extends Fragment implements BottomNavigationView.OnItemSelecte
             @Override
             public void onClick(View view) {
                 viewmodel.clearCookies();
+                viewmodel.delete();
                 startActivity(new Intent(getActivity(), Login.class));
             }
         });

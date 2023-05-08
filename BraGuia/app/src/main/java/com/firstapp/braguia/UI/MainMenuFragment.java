@@ -32,20 +32,16 @@ public class MainMenuFragment extends Fragment implements BottomNavigationView.O
         // Set the default selected item
         bottomNavigationView.setSelectedItemId(R.id.home);
 
-
-        /*
-        viewModel.getUser().observe(getViewLifecycleOwner() , new Observer<List<User>>() {
+        viewModel.getUser().observe(getViewLifecycleOwner() , new Observer<User>() {
             @Override
-            public void onChanged(List<User> users) {
-                if(users.size()>1){
+            public void onChanged(User user) {
+                if(user == null){
                     viewModel.delete();
                 }
-                else{
-                    viewModel.insert(users.get(0));
-                }
+                viewModel.insert(user);
             }
         });
-        */
+
         return view;
     }
 

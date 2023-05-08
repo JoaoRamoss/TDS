@@ -23,7 +23,6 @@ public interface Api {
     Call<ResponseBody> login(@Field("username") String user, @Field("password") String password);
 
 
-    @Headers({"Content-Type: application/json;charset=UTF-8"})
     @GET("user")
-    Call<List<User>> getUser(@Header("csrftoken") String csrf, @Header("sessionid") String session);
+    Call<User> getUser(@Header("Cookie") String tokens);
 }
