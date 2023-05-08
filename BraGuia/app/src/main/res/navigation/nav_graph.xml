@@ -69,6 +69,9 @@
         <action
             android:id="@+id/action_MenuFragment_to_HistoryFragment"
             app:destination="@id/HistoryFragment" />
+        <action
+            android:id="@+id/action_MenuFragment_to_user_info"
+            app:destination="@id/user_info" />
     </fragment>
 
     <fragment
@@ -103,4 +106,22 @@
             app:destination="@id/MenuFragment" />
     </fragment>
 
+
+    <fragment
+        android:id="@+id/user_info"
+        android:label="user info"
+        android:name="com.firstapp.braguia.UI.UserDetailsFragment"
+        tools:layout="@layout/user_info">
+
+
+        <action
+            android:id="@+id/action_user_info_to_TrailList"
+            app:destination="@id/TrailList" />
+        <action
+            android:id="@+id/action_user_info_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_user_info_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
+    </fragment>
 </navigation>

@@ -25,4 +25,7 @@ public interface Api {
 
     @GET("user")
     Call<User> getUser(@Header("Cookie") String tokens);
+
+    @POST("logout")
+    Call<ResponseBody> logout(@Header("csrftoken") String tokens);
 }

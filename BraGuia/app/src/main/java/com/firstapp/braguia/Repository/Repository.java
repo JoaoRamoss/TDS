@@ -229,4 +229,29 @@ public class Repository {
     }
 
 
+    public void logout() {
+        Map<String, ?> cookies = getCookies();
+
+        if (!cookies.isEmpty()) {
+            String csrf = CookieValidation.extractCookieValue("csrftoken", cookies.get("csrfToken").toString());
+            Call<ResponseBody> call = api.logout(csrf);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        System.out.println("Successfully logged out");
+                    } else {
+                        System.out.println(response);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    System.out.println("Error!!");
+                    System.out.println(t);
+                }
+            });
+        }
+    }
+
 }

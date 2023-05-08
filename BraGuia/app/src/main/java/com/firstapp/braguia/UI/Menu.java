@@ -20,6 +20,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Menu extends Fragment implements BottomNavigationView.OnItemSelectedListener{
     private Button logoutButton;
     private Button historyButton;
+
+    private Button profileButton;
     private ViewModel viewmodel;
     private BottomNavigationView bottomNavigationView;
     @Override
@@ -27,6 +29,7 @@ public class Menu extends Fragment implements BottomNavigationView.OnItemSelecte
         View view = inflater.inflate(R.layout.menu, container, false);
         logoutButton = view.findViewById(R.id.btn_logout);
         historyButton = view.findViewById(R.id.button_historico);
+        profileButton = view.findViewById(R.id.button_perfil);
 
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this);
@@ -74,6 +77,7 @@ public class Menu extends Fragment implements BottomNavigationView.OnItemSelecte
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                viewmodel.logout();
                 viewmodel.clearCookies();
                 viewmodel.delete();
                 startActivity(new Intent(getActivity(), Login.class));
@@ -86,5 +90,13 @@ public class Menu extends Fragment implements BottomNavigationView.OnItemSelecte
                 Navigation.findNavController(view).navigate(R.id.action_MenuFragment_to_HistoryFragment);
             }
         });
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_MenuFragment_to_user_info);
+            }
+        });
+
     }
 }

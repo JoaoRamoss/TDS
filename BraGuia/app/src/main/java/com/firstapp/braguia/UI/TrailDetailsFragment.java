@@ -18,6 +18,7 @@ import androidx.navigation.Navigation;
 
 import com.firstapp.braguia.Model.Edge;
 import com.firstapp.braguia.Model.Trail;
+import com.firstapp.braguia.Model.User;
 import com.firstapp.braguia.R;
 import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -120,6 +121,15 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
                 viewmodel.insert(trail);
 
                 openGoogleMapsNavigation(locations);
+            }
+        });
+
+        viewmodel.getLocalUser().observe(getViewLifecycleOwner(), new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (!user.getUserType().equals("Premium")){
+                    startTrailButton.setVisibility(View.GONE);
+                }
             }
         });
 

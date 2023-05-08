@@ -64,5 +64,7 @@ public class ViewModel extends AndroidViewModel{
 
     public void delete () {mRepository.deleteUser();}
 
+    public void logout() {mRepository.logout();}
+
 
 }
