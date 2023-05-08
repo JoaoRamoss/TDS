@@ -77,7 +77,7 @@
         android:layout_marginTop="32dp"
         android:text="Informações de conta"
         android:textColor="@color/our_black"
-        android:textSize="20sp"
+        android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -89,58 +89,65 @@
         android:id="@+id/tipo_utilizador_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="52dp"
-        android:textColor="@color/our_black"
         android:text="Tipo de utilizador:"
+        android:textColor="@color/our_black"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/userType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="54dp"
         android:text="Não encontrado"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.094"
+        android:textSize="18dp"
         app:layout_constraintStart_toEndOf="@+id/tipo_utilizador_label"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/username_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="52dp"
-        android:textColor="@color/our_black"
+        android:layout_marginTop="60dp"
         android:text="Username:"
+        android:textSize="18dp"
+        android:textColor="@color/our_black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tipo_utilizador_label" />
+        app:layout_constraintTop_toBottomOf="@+id/tipo_utilizador_label"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="61dp"
         android:layout_marginEnd="32dp"
         android:text="Não encontrado"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toEndOf="@+id/username_label"
-        app:layout_constraintTop_toBottomOf="@+id/userType" />
+        app:layout_constraintTop_toBottomOf="@+id/userType"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/firstname_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="52dp"
-        android:textColor="@color/our_black"
+        android:layout_marginTop="24dp"
         android:text="Primeiro nome:"
+        android:textSize="18dp"
+        android:textColor="@color/our_black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username_label" />
@@ -149,22 +156,25 @@
         android:id="@+id/firstname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="27dp"
         android:layout_marginEnd="32dp"
         android:text="Não encontrado"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toEndOf="@+id/firstname_label"
         app:layout_constraintTop_toBottomOf="@+id/username" />
+
 
     <TextView
         android:id="@+id/lastname_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="52dp"
-        android:textColor="@color/our_black"
+        android:layout_marginTop="24dp"
         android:text="Último nome:"
+        android:textColor="@color/our_black"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstname_label" />
@@ -173,24 +183,25 @@
         android:id="@+id/lastname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="27dp"
         android:layout_marginEnd="32dp"
         android:text="Não encontrado"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toEndOf="@+id/lastname_label"
         app:layout_constraintTop_toBottomOf="@+id/firstname" />
-
 
     <TextView
         android:id="@+id/email_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="52dp"
-        android:textColor="@color/our_black"
+        android:layout_marginTop="24dp"
         android:text="Email:"
+        android:textColor="@color/our_black"
         android:textStyle="bold"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lastname_label" />
 
@@ -198,11 +209,12 @@
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="27dp"
         android:layout_marginEnd="32dp"
         android:text="Não fornecido"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintHorizontal_bias="0.066"
         app:layout_constraintStart_toEndOf="@+id/email_label"
         app:layout_constraintTop_toBottomOf="@+id/lastname" />
 
@@ -210,24 +222,28 @@
         android:id="@+id/created_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="200dp"
+        android:text="Aderiu em:"
         android:textColor="@color/our_black"
-        android:text="Created on:"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_label" />
+        app:layout_constraintTop_toBottomOf="@+id/email_label"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/created"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="203dp"
         android:layout_marginEnd="32dp"
         android:text="05/05/2000"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/created_label"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
