@@ -86,6 +86,14 @@ public class TrailHistoryFragment extends Fragment implements BottomNavigationVi
             }
         });
 
+        Button backArrow = view.findViewById(R.id.back_arrow);
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
         adapter = new TrailHistoryAdapter(new ArrayList<>());
         recvView.setAdapter(adapter);
 

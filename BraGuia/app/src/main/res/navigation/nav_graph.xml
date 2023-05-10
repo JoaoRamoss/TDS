@@ -72,6 +72,12 @@
         <action
             android:id="@+id/action_MenuFragment_to_user_info"
             app:destination="@id/user_info" />
+        <action
+            android:id="@+id/action_MenuFragment_to_contact_page"
+            app:destination="@id/contact_page" />
+        <action
+            android:id="@+id/action_MenuFragment_to_settings_page"
+            app:destination="@id/settings_page" />
     </fragment>
 
     <fragment
@@ -122,6 +128,38 @@
             app:destination="@id/FirstFragment" />
         <action
             android:id="@+id/action_user_info_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/contact_page"
+        android:name="com.firstapp.braguia.UI.ContactFragment"
+        tools:layout="@layout/contact">
+        <action
+            android:id="@+id/action_contact_page_to_TrailList"
+            app:destination="@id/TrailList" />
+        <action
+            android:id="@+id/action_contact_page_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_contact_page_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settings_page"
+        android:name="com.firstapp.braguia.UI.SettingsFragment"
+        tools:layout="@layout/settings">
+
+
+        <action
+            android:id="@+id/action_settings_page_to_TrailList"
+            app:destination="@id/TrailList" />
+        <action
+            android:id="@+id/action_settings_page_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_settings_page_to_MenuFragment"
             app:destination="@id/MenuFragment" />
     </fragment>
 </navigation>

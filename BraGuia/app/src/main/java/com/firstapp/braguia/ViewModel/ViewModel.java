@@ -1,6 +1,7 @@
 package com.firstapp.braguia.ViewModel;
 
 import android.app.Application;
+import android.location.Location;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;

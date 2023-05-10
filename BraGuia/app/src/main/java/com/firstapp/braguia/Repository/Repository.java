@@ -1,11 +1,10 @@
 package com.firstapp.braguia.Repository;
 
-import static android.app.PendingIntent.getActivity;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import okhttp3.Cookie;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,35 +48,35 @@ public class Repository {
 
     private final LiveData<User> localUser;
 
-    //All trails from API
-    private LiveData<List<Trail>> allTrails;
 
-    private MutableLiveData<Boolean> isLogin = new MutableLiveData<>();
+    public Repository(Application application) throws IOException {
 
-
-
-
-    public Repository (Application application) throws IOException {
-
-
+        // Creates Retrofit instance
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL + "/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(Api.class);
 
+        // Handle Rooms and Dao
         TrailRoomDatabase db = TrailRoomDatabase.getDatabase(application);
         UserRoomDatabase dbu = UserRoomDatabase.getDatabase(application);
         localUserDao = dbu.userDao();
         localTrailDao = db.trailDao();
+
+        // Fills instance variables.
         allLocalTrails = localTrailDao.getTrails();
-        allTrails = getTrails();
         localUser = localUserDao.getUser();
+
+        // Create "myPrefs" sharedPreference in case it doesn't already exist. Retrieves it in case it does.
         this.sharedPreferences =  application.getApplicationContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
     }
 
+
+    // Get all locally stored trails
     public LiveData<List<Trail>> getAllLocalTrails(){return allLocalTrails;}
 
+    // Gets trail list from API
     public LiveData<List<Trail>> getTrails() throws IOException {
         MutableLiveData<List<Trail>> trailLiveData = new MutableLiveData<>();
         Call<List<Trail>> call = api.getTrails();
@@ -104,28 +102,30 @@ public class Repository {
     }
 
 
+    // Inserts trail into database
     public void insert(Trail trail) {
         TrailRoomDatabase.databaseWriteExecutor.execute(() -> {
             localTrailDao.insert(trail);
         });
     }
 
+    // Deletes locally stored trails (AKA trail history)
     public void deleteHistory(){
         TrailRoomDatabase.databaseWriteExecutor.execute(() -> {
             localTrailDao.deleteAll();
         });
     }
+
+    // Makes login request to API
+    // TODO clean up code -> Try to make method shorter for readability.
     public LiveData<Boolean> loginRemote(String user, String pass){
 
         MutableLiveData<Boolean> isLoggedIn = new MutableLiveData<>();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL + "/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        api = retrofit.create(Api.class);
+        // Make POST to API
         Call<ResponseBody> initiateLogin = api.login(user, pass);
 
+        // Handle API response
         initiateLogin.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -173,9 +173,11 @@ public class Repository {
         return isLoggedIn;
     }
 
+    // Gets locally stored cookies
     public Map<String, ?> getCookies(){return sharedPreferences.getAll();}
 
 
+    // Clears locally stored cookies when user logs out
     public void clearCookies(){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
@@ -184,6 +186,7 @@ public class Repository {
 
 
 
+    // Gets user information from API
     public LiveData<User> getUser() throws IOException {
         MutableLiveData<User> userLiveData = new MutableLiveData<>();
         Map<String, ?> cookies = getCookies();
@@ -212,18 +215,21 @@ public class Repository {
         return userLiveData;
     }
 
+    // Inserts user in Database
     public void insert(User user) {
         UserRoomDatabase.databaseWriteExecutor.execute(() -> {
             localUserDao.insert(user);
         });
     }
 
+    // Deletes locally stored user
     public void deleteUser(){
         UserRoomDatabase.databaseWriteExecutor.execute(() -> {
             localUserDao.deleteAll();
         });
     }
 
+    // Gets user stored locally (in database)
     public LiveData<User> getLocalUser(){
         return this.localUser;
     }

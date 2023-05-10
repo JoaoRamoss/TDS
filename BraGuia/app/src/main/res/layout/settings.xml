@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    app:layoutManager="LinearLayoutManager"
-    tools:context=".UI.TrailListFragment"
-    tools:listitem="@layout/recyclerview_item"
-    app:navGraph="@navigation/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -34,6 +30,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo" />
+        <Button
+            android:id="@+id/back_arrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/back_arrow"
+            tools:layout_editor_absoluteX="126dp"
+            tools:layout_editor_absoluteY="281dp" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -49,32 +52,6 @@
         tools:layout_editor_absoluteX="-16dp" />
 
 
-    <androidx.appcompat.widget.SearchView
-        android:layout_marginTop="3dp"
-        android:id="@+id/search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/shadow"
-        tools:layout_editor_absoluteX="0dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        app:queryHint="Pesquisar ..."
-        android:background="@drawable/search_view_bg"
-        app:iconifiedByDefault="false"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search"
-        app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/recyclerview_item" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -90,5 +67,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"
         tools:ignore="VisualLintBounds" />
+
+    <Switch
+
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+
+        android:text="Localização em Background"
+        android:textColor="@color/our_black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shadow"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

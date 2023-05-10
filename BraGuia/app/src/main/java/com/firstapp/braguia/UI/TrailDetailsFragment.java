@@ -87,6 +87,14 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
 
         Trail trail = (Trail) requireArguments().getSerializable("selectedTrail");
         trailTitle.setText(trail.getTrail_name());
+
+        Button backArrow = view.findViewById(R.id.back_arrow);
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
         //trailDescription.setText(trail.getTrail_desc());
 
         moreButton.setOnClickListener(new View.OnClickListener() {

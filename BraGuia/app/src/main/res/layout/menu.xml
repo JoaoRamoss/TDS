@@ -28,14 +28,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo" />
-
-        <Button
-            android:id="@+id/back_arrow"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/back_arrow"
-            tools:layout_editor_absoluteX="126dp"
-            tools:layout_editor_absoluteY="281dp" />
     </androidx.appcompat.widget.Toolbar>
     <View
         android:layout_marginBottom="50dp"
@@ -81,17 +73,6 @@
             android:text="Histórico"
             android:textAlignment="textStart"
             app:icon="@drawable/baseline_menu_24"
-            android:backgroundTint="@color/our_black"/>
-
-        <Button
-            android:id="@+id/button_premium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:padding="15dp"
-            android:text="Premium"
-            android:textAlignment="textStart"
-            app:icon="@drawable/baseline_workspace_premium_24"
             android:backgroundTint="@color/our_black"/>
 
         <Button
