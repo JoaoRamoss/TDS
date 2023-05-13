@@ -59,21 +59,6 @@ public class CookieValidation {
         return false;
     }
 
-    public static String extractCookieValue(String cookieName, String setCookieHeader) {
-        String[] parts = setCookieHeader.split(";");
-        for (String part : parts) {
-            part = part.trim();
-            if (part.startsWith(cookieName + "=")) {
-                return part.substring((cookieName + "=").length());
-            }
-        }
-        return null; // Cookie not found
-    }
 
-    public static String getFormatedCookies(String csrf, String session) {
-        StringBuilder sb = new StringBuilder("");
-        sb.append("csrftoken=").append(csrf)
-                .append(";").append("sessionid=").append(session);
-        return sb.toString();
-    }
+
 }

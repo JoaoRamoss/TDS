@@ -15,8 +15,9 @@ import retrofit2.http.Query;
 
 
 public interface Api {
+
     @GET("trails")
-    Call<List<Trail>> getTrails();
+    Call<List<Trail>> getTrails(@Header("Cookie") String cookies);
 
     @FormUrlEncoded
     @POST("login")

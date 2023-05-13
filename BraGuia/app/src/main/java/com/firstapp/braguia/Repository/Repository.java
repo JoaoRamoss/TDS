@@ -16,12 +16,14 @@ import com.firstapp.braguia.Model.TrailRoomDatabase;
 import com.firstapp.braguia.Model.User;
 import com.firstapp.braguia.Model.UserDao;
 import com.firstapp.braguia.Model.UserRoomDatabase;
+import com.firstapp.braguia.Utils.CookieOven;
 import com.firstapp.braguia.Utils.CookieValidation;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -46,6 +48,7 @@ public class Repository {
     //All trails stored locally
     private final LiveData<List<Trail>> allLocalTrails;
 
+    // Locally stored user Details
     private final LiveData<User> localUser;
 
 
@@ -78,25 +81,30 @@ public class Repository {
 
     // Gets trail list from API
     public LiveData<List<Trail>> getTrails() throws IOException {
+        Map<String, ?> cookies = getCookies();
         MutableLiveData<List<Trail>> trailLiveData = new MutableLiveData<>();
-        Call<List<Trail>> call = api.getTrails();
 
-        call.enqueue(new Callback<List<Trail>>() {
-            @Override
-            public void onResponse(Call<List<Trail>> call, Response<List<Trail>> response) {
-                if (response.isSuccessful()){
-                    trailLiveData.setValue(response.body());
-                }
-                else {
-                    System.out.println("Oops!");
-                }
-            }
+        if (!cookies.isEmpty()) {
+            String csrf = CookieOven.extractCsrfTokenValue(Objects.requireNonNull(cookies.get("csrftoken")).toString());
+            String session = CookieOven.extractSessionIdValue(Objects.requireNonNull(cookies.get("sessionid")).toString());
+            Call<List<Trail>> call = api.getTrails(CookieOven.getFormatedCookies(csrf, session));
 
-            @Override
-            public void onFailure(Call<List<Trail>> call, Throwable t) {
-                System.out.println(t);
-            }
-        });
+            call.enqueue(new Callback<List<Trail>>() {
+                @Override
+                public void onResponse(Call<List<Trail>> call, Response<List<Trail>> response) {
+                    if (response.isSuccessful()) {
+                        trailLiveData.setValue(response.body());
+                    } else {
+                        System.out.println("Oops!");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Trail>> call, Throwable t) {
+                    System.out.println(t);
+                }
+            });
+        }
 
         return trailLiveData;
     }
@@ -117,7 +125,7 @@ public class Repository {
     }
 
     // Makes login request to API
-    // TODO clean up code -> Try to make method shorter for readability.
+
     public LiveData<Boolean> loginRemote(String user, String pass){
 
         MutableLiveData<Boolean> isLoggedIn = new MutableLiveData<>();
@@ -132,14 +140,7 @@ public class Repository {
                 if(response.isSuccessful()){
 
                     // We get 2 "Set-Cookie". Split it and store each in an array.
-                    List<String> cookies = new ArrayList<>();
-                    for (int i = 0; i < response.headers().size(); i++) {
-                        String headerName = response.headers().name(i);
-                        String headerValue = response.headers().value(i);
-                        if (headerName.equalsIgnoreCase("Set-Cookie")) {
-                            cookies.add(headerValue);
-                        }
-                    }
+                    List<String> cookies = CookieOven.formatCookiesForStorage(response);
 
                     // Store each cookie in an individual string
                     String csrfToken = cookies.get(0);
@@ -147,8 +148,8 @@ public class Repository {
 
                     // Locally store each cookie
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("csrfToken", csrfToken);
-                    editor.putString("sessionId", sessionId);
+                    editor.putString("csrftoken", csrfToken);
+                    editor.putString("sessionid", sessionId);
                     editor.apply();
 
                     isLoggedIn.setValue(true);
@@ -192,9 +193,9 @@ public class Repository {
         Map<String, ?> cookies = getCookies();
 
         if (!cookies.isEmpty()) {
-            String csrf = CookieValidation.extractCookieValue("csrftoken", cookies.get("csrfToken").toString());
-            String session = CookieValidation.extractCookieValue("sessionid", cookies.get("sessionId").toString());
-            Call<User> call = api.getUser(CookieValidation.getFormatedCookies(csrf, session));
+            String csrf = CookieOven.extractCsrfTokenValue(Objects.requireNonNull(cookies.get("csrftoken")).toString());
+            String session = CookieOven.extractSessionIdValue(Objects.requireNonNull(cookies.get("sessionid")).toString());
+            Call<User> call = api.getUser(CookieOven.getFormatedCookies(csrf, session));
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
@@ -239,7 +240,7 @@ public class Repository {
         Map<String, ?> cookies = getCookies();
 
         if (!cookies.isEmpty()) {
-            String csrf = CookieValidation.extractCookieValue("csrftoken", cookies.get("csrfToken").toString());
+            String csrf = CookieOven.extractCsrfTokenValue(Objects.requireNonNull(cookies.get("csrftoken")).toString());
             Call<ResponseBody> call = api.logout(csrf);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -259,5 +260,6 @@ public class Repository {
             });
         }
     }
+
 
 }

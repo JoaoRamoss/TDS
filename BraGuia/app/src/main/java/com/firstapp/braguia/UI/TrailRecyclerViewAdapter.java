@@ -15,12 +15,11 @@ import com.firstapp.braguia.Model.Trail;
 import com.firstapp.braguia.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecyclerViewAdapter.TrailViewHolder> {
 
-    private List<Trail> mTrails = new ArrayList<>();
+    private List<Trail> mTrails;
 
     private ItemClickListener itemClickListener;
 
@@ -53,12 +52,9 @@ public class TrailRecyclerViewAdapter extends RecyclerView.Adapter<TrailRecycler
                 .placeholder(R.drawable.no_image)
                 .into(holder.mTrailImage);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (itemClickListener != null) {
-                    itemClickListener.onItemClick(position);
-                }
+        holder.itemView.setOnClickListener(v -> {
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(position);
             }
         });
 

@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.firstapp.braguia.R;
-import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 

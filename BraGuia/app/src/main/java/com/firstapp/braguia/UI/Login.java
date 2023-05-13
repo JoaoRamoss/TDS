@@ -11,14 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.firstapp.braguia.Model.User;
 import com.firstapp.braguia.Utils.CookieValidation;
 import com.firstapp.braguia.R;
 import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.List;
 import java.util.Map;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
@@ -39,6 +35,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        // Assign variables to each View element
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         buttonLogin = (Button) findViewById(R.id.btn_login);
@@ -50,9 +47,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         textView.setOnClickListener(this);
         viewModel = new ViewModelProvider(this).get(ViewModel.class);
 
+        // Checks if cookies are valid
+        // Valid cookies -> Skips to MainActivity (We can use the stored cookies to make requests)
+        // Non valid cookies -> Forces user to login
         Map<String, ?> cookies = viewModel.getCookies();
         if (!cookies.isEmpty()) {
-            if(CookieValidation.validateCookies(cookies.get("csrfToken").toString(), cookies.get("sessionId").toString())){
+            if(CookieValidation.validateCookies(cookies.get("csrftoken").toString(), cookies.get("sessionid").toString())){
                 startActivity(new Intent(Login.this, MainActivity.class));
                 finish();
             }
@@ -66,13 +66,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         {
             case R.id.btn_login:
                 viewModel.login(String.valueOf(editTextEmail.getText()), String.valueOf(editTextPassword.getText()))
-                        .observe(Login.this, new Observer<Boolean>() {
-                            @Override
-                            public void onChanged(Boolean loginResult) {
-                                if (loginResult) {
-                                    startActivity(new Intent(Login.this, MainActivity.class));
-                                    finish();
-                                }
+                        .observe(Login.this, loginResult -> {
+                            // On successful login, starts MainActivity
+                            if (loginResult) {
+                                startActivity(new Intent(Login.this, MainActivity.class));
+                                finish();
                             }
                         });
                 break;

@@ -11,14 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.firstapp.braguia.Model.Edge;
 import com.firstapp.braguia.Model.Trail;
-import com.firstapp.braguia.Model.User;
 import com.firstapp.braguia.R;
 import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -38,8 +35,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import android.location.Location;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.OnFailureListener;
 
 import android.content.Intent;
@@ -50,7 +45,6 @@ import android.widget.Toast;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class TrailDetailsFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener, OnMapReadyCallback {
@@ -59,7 +53,6 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
 
     private Button moreButton;
     private TextView trailTitle;
-    private TextView trailDescription;
     private MapView mapView;
     private GoogleMap googleMap;
 
@@ -89,28 +82,21 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
         trailTitle.setText(trail.getTrail_name());
 
         Button backArrow = view.findViewById(R.id.back_arrow);
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().onBackPressed();
-            }
-        });
-        //trailDescription.setText(trail.getTrail_desc());
+        backArrow.setOnClickListener(view1 -> getActivity().onBackPressed());
 
-        moreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Trail selectedTrail = trail;
-                        Bundle bundle = new Bundle();
-                bundle.putSerializable("selectedTrail", (Serializable) selectedTrail);
-                Navigation.findNavController(view).navigate(R.id.action_trailDetailsFragment_to_trail_media, bundle);
-            }
+        // Event where user presses "+" Button
+        moreButton.setOnClickListener(view2 -> {
+            Trail selectedTrail = trail;
+                    Bundle bundle = new Bundle();
+            bundle.putSerializable("selectedTrail", (Serializable) selectedTrail);
+            Navigation.findNavController(view2).navigate(R.id.action_trailDetailsFragment_to_trail_media, bundle);
         });
-        // Inicializar o MapView
+
+        // Start MapView
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
-        //inicializar o  FusedLocationProviderClient
+        // Start FusedLocationProviderClient
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
@@ -119,25 +105,22 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
         // Set the default selected item
         bottomNavigationView.setSelectedItemId(R.id.trailDetailsFragment);
 
-        startTrailButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        // Event where user presses "Start trail" Button.
+        startTrailButton.setOnClickListener(v -> {
 
-                // Place trail in trails history
-                assert getArguments() != null;
-                Trail trail = (Trail) getArguments().getSerializable("selectedTrail");
-                viewmodel.insert(trail);
+            // Place trail in trails history
+            assert getArguments() != null;
+            Trail trail1 = (Trail) getArguments().getSerializable("selectedTrail");
+            viewmodel.insert(trail1);
 
-                openGoogleMapsNavigation(locations);
-            }
+            //Opens google maps app with the trail already set
+            openGoogleMapsNavigation(locations);
         });
 
-        viewmodel.getLocalUser().observe(getViewLifecycleOwner(), new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                if (!user.getUserType().equals("Premium")){
-                    startTrailButton.setVisibility(View.GONE);
-                }
+        // Checks if current user is Premium user. Only renders "start trail" Button in case it's a premium user
+        viewmodel.getLocalUser().observe(getViewLifecycleOwner(), user -> {
+            if (!user.getUserType().equals("Premium")){
+                startTrailButton.setVisibility(View.GONE);
             }
         });
 
@@ -209,12 +192,9 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
-            getCurrentLocation(new LocationCallback() {
-                @Override
-                public void onLocationReceived(LatLng currentLocation) {
-                    locations.add(0,currentLocation);
-                    setupMap();
-                }
+            getCurrentLocation(currentLocation -> {
+                locations.add(0,currentLocation);
+                setupMap();
             });
         }
     }
@@ -226,13 +206,10 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
     private void getCurrentLocation(LocationCallback callback) {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                                callback.onLocationReceived(currentLocation);
-                            }
+                    .addOnSuccessListener(getActivity(), location -> {
+                        if (location != null) {
+                            LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                            callback.onLocationReceived(currentLocation);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -259,7 +236,7 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
             // Append waypoints
             if (locations.size() > 2) {
                 waypoints.append("&waypoints=");
-                Set<String> uniqueWaypoints = new HashSet<String>(); // Store unique waypoints in a Set (Fixes issue where there was waypoint repetition)
+                Set<String> uniqueWaypoints = new HashSet<>(); // Store unique waypoints in a Set (Fixes issue where there was waypoint repetition)
                 for (int i = 1; i < locations.size() - 1; i++) {
                     LatLng location = locations.get(i);
                     String coordinateString = location.latitude + "," + location.longitude;
@@ -275,6 +252,7 @@ public class TrailDetailsFragment extends Fragment implements BottomNavigationVi
 
             // Append travel mode
             waypoints.append("&travelmode=driving");
+
             // Convert waypoints to Uri
             Uri gmmIntentUri = Uri.parse(waypoints.toString());
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);

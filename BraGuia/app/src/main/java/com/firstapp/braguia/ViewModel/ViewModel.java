@@ -1,11 +1,9 @@
 package com.firstapp.braguia.ViewModel;
 
 import android.app.Application;
-import android.location.Location;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.firstapp.braguia.Model.Trail;
 import com.firstapp.braguia.Model.User;

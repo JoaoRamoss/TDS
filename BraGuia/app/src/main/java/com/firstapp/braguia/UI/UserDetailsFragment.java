@@ -1,43 +1,25 @@
 package com.firstapp.braguia.UI;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-
-import com.firstapp.braguia.Model.Edge;
-import com.firstapp.braguia.Model.Media;
-import com.firstapp.braguia.Model.Trail;
 import com.firstapp.braguia.Model.User;
 import com.firstapp.braguia.R;
 import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 public class UserDetailsFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener{
 
@@ -57,12 +39,7 @@ public class UserDetailsFragment extends Fragment implements BottomNavigationVie
         bottomNavigationView.setOnItemSelectedListener(this);
 
         backArrow = view.findViewById(R.id.back_arrow);
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().onBackPressed();
-            }
-        });
+        backArrow.setOnClickListener(view1 -> getActivity().onBackPressed());
 
         userType = view.findViewById(R.id.userType);
         username = view.findViewById(R.id.username);
@@ -72,31 +49,28 @@ public class UserDetailsFragment extends Fragment implements BottomNavigationVie
         createdDate = view.findViewById(R.id.created);
 
         viewmodel = new ViewModelProvider(this).get(ViewModel.class);
-        viewmodel.getLocalUser().observe(getViewLifecycleOwner(), new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                userType.setText(user.getUserType());
-                username.setText(user.getUsername());
-                firstname.setText(user.getFirstName());
-                lastname.setText(user.getLastName());
-                email.setText(user.getEmail());
+        viewmodel.getLocalUser().observe(getViewLifecycleOwner(), user -> {
+            userType.setText(user.getUserType());
+            username.setText(user.getUsername());
+            firstname.setText(user.getFirstName());
+            lastname.setText(user.getLastName());
+            email.setText(user.getEmail());
 
-                String inputDate = user.getDateJoined();
+            String inputDate = user.getDateJoined();
 
-                LocalDateTime dateTime = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    dateTime = LocalDateTime.parse(inputDate, DateTimeFormatter.ISO_DATE_TIME);
-                }
-                DateTimeFormatter dateFormatter = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                }
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    String outputDate = dateTime.format(dateFormatter);
-                    createdDate.setText(outputDate);
-                }
-
+            LocalDateTime dateTime = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                dateTime = LocalDateTime.parse(inputDate, DateTimeFormatter.ISO_DATE_TIME);
             }
+            DateTimeFormatter dateFormatter = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                String outputDate = dateTime.format(dateFormatter);
+                createdDate.setText(outputDate);
+            }
+
         });
 
 

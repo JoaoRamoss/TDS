@@ -1,6 +1,5 @@
 package com.firstapp.braguia.UI;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -24,9 +22,6 @@ import com.firstapp.braguia.R;
 import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.w3c.dom.Text;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -34,11 +29,7 @@ import java.util.regex.Pattern;
 
 public class TrailHistoryFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener {
 
-
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    private int mColumnCount = 1;
     private static List<Trail> trails = new ArrayList<>();
-    private static boolean isLoaded = false;
 
     private SearchView searchbar;
     private TextView emptyMessage;
@@ -52,9 +43,6 @@ public class TrailHistoryFragment extends Fragment implements BottomNavigationVi
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        if(getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     public TrailHistoryFragment(){}
@@ -87,32 +75,24 @@ public class TrailHistoryFragment extends Fragment implements BottomNavigationVi
         });
 
         Button backArrow = view.findViewById(R.id.back_arrow);
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().onBackPressed();
-            }
-        });
+        backArrow.setOnClickListener(view1 -> getActivity().onBackPressed());
 
         adapter = new TrailHistoryAdapter(new ArrayList<>());
         recvView.setAdapter(adapter);
 
         ViewModel viewmodel = new ViewModelProvider(this).get(ViewModel.class);
-        viewmodel.getmAllTrails().observe(getViewLifecycleOwner(), new Observer<List<Trail>>() {
-            @Override
-            public void onChanged(List<Trail> trails) {
-                adapter.setTrails(trails);
-                TrailHistoryFragment.trails = trails;
-                if (trails.isEmpty()){
-                    clearHistory.setVisibility(View.GONE);
-                    emptyMessage.setVisibility(View.VISIBLE);
-                    searchbar.setVisibility(View.GONE);
-                }
-                else {
-                    clearHistory.setVisibility(View.VISIBLE);
-                    emptyMessage.setVisibility(View.GONE);
-                    searchbar.setVisibility(View.VISIBLE);
-                }
+        viewmodel.getmAllTrails().observe(getViewLifecycleOwner(), trails -> {
+            adapter.setTrails(trails);
+            TrailHistoryFragment.trails = trails;
+            if (trails.isEmpty()){
+                clearHistory.setVisibility(View.GONE);
+                emptyMessage.setVisibility(View.VISIBLE);
+                searchbar.setVisibility(View.GONE);
+            }
+            else {
+                clearHistory.setVisibility(View.VISIBLE);
+                emptyMessage.setVisibility(View.GONE);
+                searchbar.setVisibility(View.VISIBLE);
             }
         });
 
@@ -187,11 +167,6 @@ public class TrailHistoryFragment extends Fragment implements BottomNavigationVi
     }
 
     private void setButtonListeners() {
-        clearHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewmodel.clearHistory();
-            }
-        });
+        clearHistory.setOnClickListener(view -> viewmodel.clearHistory());
     }
 }

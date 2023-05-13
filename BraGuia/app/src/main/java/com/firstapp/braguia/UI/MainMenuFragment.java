@@ -1,6 +1,5 @@
 package com.firstapp.braguia.UI;
 
-import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,8 +17,6 @@ import com.firstapp.braguia.R;
 import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
-
 
 public class MainMenuFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener {
     private BottomNavigationView bottomNavigationView;
@@ -34,14 +31,9 @@ public class MainMenuFragment extends Fragment implements BottomNavigationView.O
         bottomNavigationView.setSelectedItemId(R.id.home);
 
 
-        viewModel.getUser().observe(getViewLifecycleOwner() , new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                if(user == null){
-                    viewModel.delete();
-                }
-                viewModel.insert(user);
-            }
+        viewModel.getUser().observe(getViewLifecycleOwner() , user -> {
+            // First thing to when starting main activity is to store user information.
+            viewModel.insert(user);
         });
 
         return view;

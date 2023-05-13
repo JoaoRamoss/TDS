@@ -1,6 +1,5 @@
 package com.firstapp.braguia.UI;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -15,26 +14,25 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.firstapp.braguia.Model.Edge;
 import com.firstapp.braguia.Model.Media;
 import com.firstapp.braguia.Model.Trail;
 import com.firstapp.braguia.R;
+import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TrailMediaFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener {
 
@@ -54,12 +52,7 @@ public class TrailMediaFragment extends Fragment implements BottomNavigationView
         View view = inflater.inflate(R.layout.trail_media, container, false);
 
         backArrow = view.findViewById(R.id.back_arrow);
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().onBackPressed();
-            }
-        });
+        backArrow.setOnClickListener(view1 -> getActivity().onBackPressed());
         description = view.findViewById(R.id.description);
         bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this);
@@ -74,7 +67,12 @@ public class TrailMediaFragment extends Fragment implements BottomNavigationView
         this.description.setMovementMethod(new ScrollingMovementMethod());
         this.description.setText(selectedTrail.getTrail_desc());
 
-        addMediaToScrollView();
+        ViewModel viewmodel = new ViewModelProvider(this).get(ViewModel.class);
+        viewmodel.getLocalUser().observe(getViewLifecycleOwner(), user -> {
+            if (user.getUserType().equals("Premium")) {
+                addMediaToScrollView();
+            }
+        });
         return view;
     }
 

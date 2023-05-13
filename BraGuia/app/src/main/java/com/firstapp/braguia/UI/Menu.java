@@ -10,11 +10,9 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.firstapp.braguia.Model.User;
 import com.firstapp.braguia.R;
 import com.firstapp.braguia.ViewModel.ViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,29 +27,30 @@ public class Menu extends Fragment implements BottomNavigationView.OnItemSelecte
 
     private Button contactButton;
     private ViewModel viewmodel;
-    private BottomNavigationView bottomNavigationView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.menu, container, false);
+
+
         logoutButton = view.findViewById(R.id.btn_logout);
         historyButton = view.findViewById(R.id.button_historico);
         profileButton = view.findViewById(R.id.button_perfil);
         contactButton = view.findViewById(R.id.button_contactenos);
         settingsButton = view.findViewById(R.id.button_definicoes);
 
-        bottomNavigationView = view.findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this);
+
         // Set the default selected item
         bottomNavigationView.setSelectedItemId(R.id.menu);
         this.viewmodel = new ViewModelProvider(this).get(ViewModel.class);
 
-        viewmodel.getLocalUser().observe(getViewLifecycleOwner(), new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                if (user != null) {
-                    if (!user.getUserType().equals("Premium")) {
-                        historyButton.setVisibility(View.GONE);
-                    }
+        viewmodel.getLocalUser().observe(getViewLifecycleOwner(), user -> {
+            if (user != null) {
+                // Un-renders "History" button in case the user isn't a Premium user
+                if (!user.getUserType().equals("Premium")) {
+                    historyButton.setVisibility(View.GONE);
                 }
             }
         });
@@ -84,7 +83,6 @@ public class Menu extends Fragment implements BottomNavigationView.OnItemSelecte
     }
 
     private void navigateToRouteFragment() {
-        // Navigate to the HomeFragment
         Navigation.findNavController(this.getView()).navigate(R.id.action_MenuFragment_to_TrailList);
     }
 
@@ -93,43 +91,20 @@ public class Menu extends Fragment implements BottomNavigationView.OnItemSelecte
     }
 
     private void setButtonListeners() {
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewmodel.logout();
-                viewmodel.clearCookies();
-                viewmodel.delete();
-                startActivity(new Intent(getActivity(), Login.class));
-            }
+        logoutButton.setOnClickListener(view -> {
+            viewmodel.logout();
+            viewmodel.clearCookies();
+            viewmodel.delete();
+            startActivity(new Intent(getActivity(), Login.class));
         });
 
-        historyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_MenuFragment_to_HistoryFragment);
-            }
-        });
+        historyButton.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_MenuFragment_to_HistoryFragment));
 
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_MenuFragment_to_user_info);
-            }
-        });
+        profileButton.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_MenuFragment_to_user_info));
 
-        contactButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_MenuFragment_to_contact_page);
-            }
-        });
+        contactButton.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_MenuFragment_to_contact_page));
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_MenuFragment_to_settings_page);
-            }
-        });
+        settingsButton.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_MenuFragment_to_settings_page));
 
     }
 }

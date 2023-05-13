@@ -10,13 +10,7 @@ import android.widget.TextView;
 import com.firstapp.braguia.Model.Api;
 import com.firstapp.braguia.R;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class MainActivity extends AppCompatActivity  {
-        Button button;
-        TextView textView;
-        private Api apiInterface;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
 

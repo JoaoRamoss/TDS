@@ -15,22 +15,18 @@ import com.firstapp.braguia.Model.Trail;
 import com.firstapp.braguia.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TrailHistoryAdapter extends RecyclerView.Adapter<TrailHistoryAdapter.TrailViewHolder>{
 
 
-    private List<Trail> mTrails = new ArrayList<>();
+    private List<Trail> mTrails;
 
 
     public TrailHistoryAdapter (List<Trail> items) {
         mTrails = items;
     }
 
-    public List<Trail> getmTrails() {
-        return mTrails;
-    }
 
     @Override
     public TrailHistoryAdapter.TrailViewHolder onCreateViewHolder(ViewGroup parent, int viewType){

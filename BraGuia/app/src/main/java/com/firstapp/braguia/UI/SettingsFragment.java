@@ -25,12 +25,7 @@ public class SettingsFragment extends Fragment implements BottomNavigationView.O
         bottomNavigationView.setOnItemSelectedListener(this);
 
         backArrow = view.findViewById(R.id.back_arrow);
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().onBackPressed();
-            }
-        });
+        backArrow.setOnClickListener(view1 -> getActivity().onBackPressed());
 
 
         return view;

@@ -5,12 +5,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -30,10 +28,7 @@ import java.util.regex.Pattern;
 
 public class TrailListFragment extends Fragment implements BottomNavigationView.OnItemSelectedListener, TrailRecyclerViewAdapter.ItemClickListener {
 
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    private int mColumnCount = 1;
     private static List<Trail> trails = new ArrayList<>();
-    private static boolean isLoaded = false;
 
     private SearchView searchbar;
 
@@ -43,9 +38,6 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        if(getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     public TrailListFragment(){}
@@ -78,12 +70,9 @@ public class TrailListFragment extends Fragment implements BottomNavigationView.
         recvView.setAdapter(adapter);
 
         ViewModel viewmodel = new ViewModelProvider(this).get(ViewModel.class);
-        viewmodel.getTrails().observe(getViewLifecycleOwner(), new Observer<List<Trail>>() {
-            @Override
-            public void onChanged(List<Trail> trails) {
-                adapter.setTrails(trails);
-                TrailListFragment.trails = trails;
-            }
+        viewmodel.getTrails().observe(getViewLifecycleOwner(), trails -> {
+            adapter.setTrails(trails);
+            TrailListFragment.trails = trails;
         });
 
 
