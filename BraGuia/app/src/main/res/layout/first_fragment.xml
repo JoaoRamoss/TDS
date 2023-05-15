@@ -55,59 +55,22 @@
         app:menu="@menu/bottom_nav_menu"
         tools:ignore="VisualLintBounds" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="390dp"
-        android:layout_height="410dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="40dp"
+        android:background="@color/off_white"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="Descubra os tesouros escondidos de Braga com a nossa aplicação de guia virtual! Explore a rica história da cidade, a sua deslumbrante arquitetura e a cultura vibrante, tudo na palma da sua mão. Com recomendações personalizadas e dicas de especialistas, irá experienciar o melhor de Braga como um local. Faça o download da aplicação agora e comece a sua aventura!"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        app:layout_constraintVertical_bias="0.482"
-        tools:context=".UI.MainActivity">
-
-        <!-- syntax for HorizontalScrollView -->
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:foregroundGravity="center_vertical">
-
-            <!-- child view -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:foregroundGravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <!-- LinearLayout children -->
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/rounded_background"
-                    android:maxWidth="400dp"
-                    android:padding="15dp"
-                    android:text="@string/Apresentação"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="15dp"
-                    android:text="FOR"
-                    android:textColor="@color/off_white"
-                    android:textSize="70sp" />
-
-
-            </LinearLayout>
-        </HorizontalScrollView>
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
